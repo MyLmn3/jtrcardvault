@@ -41,8 +41,6 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
 .toolbar { display: flex; gap: 12px; margin-bottom: 25px; align-items: center; }
 .search-box { flex: 1; background: var(--surface2); border: 1px solid var(--border); padding: 10px 15px; color: white; border-radius: 8px; outline: none; font-size: 14px; transition: border-color 0.2s; }
 .search-box:focus { border-color: var(--green); }
-
-/* THE MISSING TOGGLE BUTTON CSS (RESTORED) */
 .view-toggle { display: flex; gap: 6px; }
 .vbtn { padding: 8px 16px; background: var(--surface2); color: var(--text2); border: 1px solid var(--surface3); cursor: pointer; font-size: 12px; border-radius: 8px; font-weight: 600; transition: 0.2s; }
 .vbtn:hover { background: rgba(255,255,255,0.05); color: var(--text); }
@@ -50,33 +48,42 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
 
 /* --- GRID & CARDS --- */
 .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px,1fr)); gap: 20px; }
-.card-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+.card-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; }
 .card-item:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.4); border-color: var(--green); }
 .is-sold { opacity: 0.7 !important; filter: grayscale(0.4); }
 .is-wanted { opacity: 0.9; border-color: var(--blue); }
 .banner-sold { position: absolute; top: 12px; left: -28px; background: var(--danger); color: white; transform: rotate(-45deg); width: 100px; text-align: center; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; z-index: 10; }
-.card-img-wrap { height: 160px; background: #000; overflow: hidden; position: relative; }
+.card-img-wrap { height: 160px; background: #000; overflow: hidden; position: relative; flex-shrink: 0; }
 .card-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
 .note-indicator { position: absolute; bottom: 8px; right: 8px; background: var(--green); color: var(--navy); font-size: 10px; padding: 3px 6px; border-radius: 4px; font-weight: 700; }
-.card-body { padding: 12px; }
+.card-body { padding: 12px; display: flex; flex-direction: column; flex: 1; justify-content: space-between; }
 .card-player { font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 2px; }
 .card-meta { font-size: 11px; color: var(--text3); margin-bottom: 10px; font-weight: 500; }
-.card-prices { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.card-prices { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 8px; }
 .price-pip { background: var(--surface2); padding: 6px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05); }
 .price-pip .pl { font-size: 8px; text-transform: uppercase; color: var(--text3); margin-bottom: 2px; font-weight: 700; }
 .price-pip .pv { font-family: 'Oswald'; font-size: 11px; color: var(--green); }
-.gain-badge { margin-top: 8px; padding: 5px 8px; border-radius: 6px; font-family: 'Oswald'; font-size: 12px; font-weight: 700; text-align: center; }
+.gain-badge { padding: 5px 8px; border-radius: 6px; font-family: 'Oswald'; font-size: 12px; font-weight: 700; text-align: center; margin-bottom: 10px; }
 .gain-badge.up { background: rgba(105,190,40,0.15); color: var(--green); }
 .gain-badge.down { background: rgba(239,68,68,0.15); color: var(--danger); }
 .gain-badge.flat { background: rgba(255,255,255,0.05); color: var(--text3); }
 .gain-badge.blue { background: rgba(59,130,246,0.15); color: var(--blue); }
+
+/* --- COMPS BUTTONS --- */
+.comp-row { display: flex; gap: 6px; align-items: center; justify-content: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 10px; }
+.comp-btn { background: rgba(255,255,255,0.03); border: 1px solid var(--surface3); color: var(--text2); font-size: 10px; font-weight: 700; font-family: 'Oswald'; text-transform: uppercase; padding: 4px 10px; border-radius: 6px; cursor: pointer; transition: 0.2s; flex: 1; letter-spacing: 0.5px; }
+.comp-btn:hover { background: var(--surface3); color: white; }
+.comp-btn.ebay:hover { border-color: #3b82f6; color: #3b82f6; background: rgba(59,130,246,0.1); }
+.comp-btn.pt130:hover { border-color: var(--green); color: var(--green); background: rgba(105,190,40,0.1); }
+.modal-comp-row { display: flex; gap: 6px; align-items: center; margin-top: 6px; padding-left: 4px; }
+.modal-comp-row .comp-label { font-size: 10px; font-family: 'Oswald'; text-transform: uppercase; color: var(--text3); font-weight: 600; letter-spacing: 0.5px; }
 
 /* --- TABLE --- */
 .card-table { width: 100%; border-collapse: collapse; background: var(--surface); border-radius: var(--radius); overflow: hidden; }
 .card-table th { text-align: left; color: var(--text3); font-family: 'Oswald'; font-size: 10px; text-transform: uppercase; padding: 15px 12px; border-bottom: 1px solid var(--border); background: rgba(0,0,0,0.15); }
 .card-table td { padding: 14px 12px; border-bottom: 1px solid rgba(255,255,255,0.03); font-size: 13px; vertical-align: middle; }
 
-/* --- MODAL (V1.4) --- */
+/* --- MODAL --- */
 .overlay { display: none; position: fixed; inset: 0; background: rgba(2,6,23,0.85); z-index: 500; align-items: center; justify-content: center; padding: 15px; -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
 .overlay.open { display: flex; }
 .modal { background: var(--surface); border-radius: 16px; width: 100%; max-width: 800px; max-height: 90dvh; display: flex; flex-direction: column; border: 1px solid var(--border2); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); overflow: hidden; }
@@ -85,8 +92,6 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
 .modal-body { padding: 24px; overflow-y: auto; flex: 1; display: flex; gap: 24px; }
 .modal-col-left { width: 260px; flex-shrink: 0; display: flex; flex-direction: column; gap: 15px; }
 .modal-col-right { flex: 1; display: flex; flex-direction: column; gap: 12px; }
-
-/* --- MODERN UPLOAD BUTTONS --- */
 .modern-upload { display: flex; background: var(--surface2); border-radius: 10px; overflow: hidden; border: 1px solid var(--surface3); }
 .m-up-btn { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px 0; cursor: pointer; transition: 0.2s; background: transparent; border: none; color: var(--text2); gap: 6px; }
 .m-up-btn:hover { background: rgba(105,190,40,0.05); color: var(--green); }
@@ -95,24 +100,21 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
 .m-up-label { font-size: 10px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; }
 .upload-preview { width: 100%; height: 260px; object-fit: cover; border-radius: 10px; display: none; cursor: pointer; border: 1px solid var(--border2); }
 
-/* --- MODERN INPUTS --- */
+/* --- INPUTS --- */
 .fi { width: 100%; background: rgba(255,255,255,0.03); border: 1px solid transparent; border-bottom: 2px solid var(--surface3); padding: 12px 14px; color: white; border-radius: 8px 8px 0 0; font-size: 14px; outline: none; font-family: 'Inter', sans-serif; transition: 0.2s; }
 .fi:focus { background: rgba(255,255,255,0.06); border-bottom-color: var(--green); }
 .fi:disabled { opacity: 0.4; cursor: not-allowed; }
+.fi option { background: var(--surface2); color: var(--text); }
 .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-
-/* --- MONEY WRAPPER --- */
 .money-wrap { position: relative; width: 100%; }
 .money-wrap::before { content: '$'; position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text3); font-weight: 600; font-size: 14px; pointer-events: none; }
 .money-wrap .fi { padding-left: 28px; }
 
-/* --- MODERN PILL TOGGLES --- */
+/* --- TOGGLES & FOOTER --- */
 .status-row { display: flex; gap: 12px; margin-top: 4px; }
 .pill-toggle { flex: 1; background: rgba(255,255,255,0.03); border: 1px solid var(--surface3); padding: 10px; border-radius: 8px; text-align: center; font-size: 12px; font-weight: 600; cursor: pointer; color: var(--text2); transition: 0.2s; }
 .pill-toggle.sold-on { background: rgba(239,68,68,0.1); border-color: var(--danger); color: var(--danger); }
 .pill-toggle.want-on { background: rgba(59,130,246,0.1); border-color: var(--blue); color: var(--blue); }
-
-/* --- STICKY ACTION DOCK --- */
 .modal-footer { position: sticky; bottom: 0; background: var(--surface); border-top: 1px solid var(--surface3); padding: 15px 24px; display: flex; justify-content: space-between; align-items: center; gap: 12px; z-index: 10; }
 .btn-primary { background: var(--green); color: var(--navy3); font-family: 'Oswald'; font-weight: 700; padding: 12px 20px; border: none; border-radius: 8px; cursor: pointer; text-transform: uppercase; font-size: 13px; transition:0.2s; flex: 1; }
 .btn-batch { background: var(--surface2); color: var(--text); border: 1px solid var(--surface3); font-family: 'Oswald'; font-weight: 700; padding: 12px 20px; border-radius: 8px; cursor: pointer; text-transform: uppercase; font-size: 13px; transition:0.2s; flex: 1; }
@@ -122,7 +124,7 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
 .btn-danger-icon { background: rgba(239,68,68,0.1); border: 1px solid var(--danger); color: var(--danger); width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; opacity: 0; pointer-events: none; }
 .btn-danger-icon.show { opacity: 1; pointer-events: auto; }
 
-/* --- MOBILE SPECIFIC --- */
+/* --- MOBILE --- */
 @media (max-width: 768px) {
   .stats-bar { grid-template-columns: 1fr 1fr; }
   .main { flex-direction: column; }
@@ -234,7 +236,14 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
 
             <div class="grid-2">
                 <div class="money-wrap"><input type="number" id="f-paid" class="fi" placeholder="Paid" min="0" step="0.01" onblur="formatMoney(this)"></div>
-                <div class="money-wrap"><input type="number" id="f-worth" class="fi" placeholder="Worth" min="0" step="0.01" onblur="formatMoney(this)"></div>
+                <div>
+                    <div class="money-wrap"><input type="number" id="f-worth" class="fi" placeholder="Worth" min="0" step="0.01" onblur="formatMoney(this)"></div>
+                    <div class="modal-comp-row">
+                        <span class="comp-label">Comps:</span>
+                        <button type="button" class="comp-btn ebay" onclick="launchFormComps('ebay')">eBay</button>
+                        <button type="button" class="comp-btn pt130" onclick="launchFormComps('130')">130Pt</button>
+                    </div>
+                </div>
             </div>
             <div class="money-wrap"><input type="number" id="f-sold" class="fi" placeholder="Sold For (If applicable)" min="0" step="0.01" onblur="formatMoney(this)"></div>
             
@@ -266,17 +275,45 @@ const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 let cards = [], view = 'grid', editId = null, pendingImg = null, fStatus = 'all', isLoading = false, isSaving = false;
 const SI = { baseball:'⚾', basketball:'🏀', football:'🏈', hockey:'🏒', soccer:'⚽', other:'🎴' };
 
-// FORMAT MONEY ON BLUR
-function formatMoney(el) { if (el.value) el.value = parseFloat(el.value).toFixed(2); }
+// --- COMPS ENGINE ---
+async function runComps(player, year, brand, grade, site, event) {
+    if (event) event.stopPropagation(); // Stop card from opening when button is clicked
+    if (!player) return alert("Please enter at least a player name first!");
+    
+    // Build the query: "2003 Topps LeBron James PSA 10"
+    const qParts = [year, brand, player, (grade === 'raw' || grade === 'RAW' ? '' : grade)];
+    const query = qParts.filter(Boolean).join(' ').trim();
+    
+    if (site === 'ebay') {
+        const url = `https://www.ebay.com/sch/i.html?_nkw=${encodeURIComponent(query)}&LH_Sold=1&LH_Complete=1`;
+        window.open(url, '_blank');
+    } else if (site === '130') {
+        try { 
+            await navigator.clipboard.writeText(query); 
+            alert(`Copied: "${query}" to your clipboard!\n\nJust hit Paste in the 130Point search bar.`);
+        } catch(e) { console.log('Clipboard blocked, proceed anyway'); }
+        window.open('https://130point.com/sales/', '_blank');
+    }
+}
 
-// GRADE FIELD LOGIC
+function launchFormComps(site) {
+    const p = document.getElementById('f-player').value.trim();
+    const y = document.getElementById('f-year').value.trim();
+    const b = document.getElementById('f-brand').value.trim();
+    const gc = document.getElementById('f-grade-comp').value;
+    const gn = document.getElementById('f-grade-num').value.trim();
+    const g = gc === 'raw' ? 'raw' : `${gc} ${gn}`;
+    runComps(p, y, b, g, site, null);
+}
+
+// --- UTILS ---
+function formatMoney(el) { if (el.value) el.value = parseFloat(el.value).toFixed(2); }
 function checkGrade() {
     const comp = document.getElementById('f-grade-comp').value;
     const numEl = document.getElementById('f-grade-num');
     if (comp === 'raw') { numEl.value = ''; numEl.disabled = true; } 
     else { numEl.disabled = false; }
 }
-
 function cleanNum(val) { return parseFloat(String(val || '').replace(/[^0-9.]/g, '')) || 0; }
 function fmt(n) { return '$' + Math.abs(n).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
 function el(tag, attrs = {}, children = []) {
@@ -288,6 +325,7 @@ function el(tag, attrs = {}, children = []) {
   return elem;
 }
 
+// --- CORE ---
 async function load() {
   try {
     let { data, error } = await db.from('cards').select('*').order('ts', { ascending: false });
@@ -342,7 +380,14 @@ function renderGrid(wrap, list) {
 
     const displayGrade = c.grade === 'raw' ? 'RAW' : c.grade;
     const imgWrap = el('div', { className: 'card-img-wrap' }, [ c.status === 'sold' ? el('div', { className: 'banner-sold' }, ['SOLD']) : null, c.img ? el('img', { src: c.img, loading: 'lazy' }) : el('div', { style: { paddingTop: '60px', textAlign: 'center', fontSize: '30px', opacity: '0.2' } }, [SI[c.sport] || '🎴']), el('div', { className: 'note-indicator', style: {background: displayGrade === 'RAW' ? 'var(--surface3)' : 'var(--blue)', color: 'white'} }, [displayGrade]) ]);
-    const body = el('div', { className: 'card-body' }, [ el('div', { className: 'card-player' }, [c.player || '']), el('div', { className: 'card-meta' }, [`${c.year || ''} ${c.brand || ''}`.trim()]), el('div', { className: 'card-prices' }, [ el('div', { className: 'price-pip' }, [ el('div', { className: 'pl' }, ['PAID']), el('div', { className: 'pv' }, [fmt(paid)]) ]), el('div', { className: 'price-pip' }, [ el('div', { className: 'pl' }, [c.status === 'sold' ? 'SOLD' : 'WORTH']), el('div', { className: 'pv' }, [c.status === 'sold' ? fmt(sold) : fmt(worth)]) ]) ]), el('div', { className: `gain-badge ${gainClass}` }, [gainLabel]) ]);
+    
+    // THE NEW DASHBOARD COMPS BUTTONS
+    const compActions = el('div', { className: 'comp-row' }, [
+        el('button', { className: 'comp-btn ebay', onclick: (e) => runComps(c.player, c.year, c.brand, c.grade, 'ebay', e) }, ['🔍 eBay']),
+        el('button', { className: 'comp-btn pt130', onclick: (e) => runComps(c.player, c.year, c.brand, c.grade, '130', e) }, ['🔍 130Pt'])
+    ]);
+
+    const body = el('div', { className: 'card-body' }, [ el('div', {}, [ el('div', { className: 'card-player' }, [c.player || '']), el('div', { className: 'card-meta' }, [`${c.year || ''} ${c.brand || ''}`.trim()]), el('div', { className: 'card-prices' }, [ el('div', { className: 'price-pip' }, [ el('div', { className: 'pl' }, ['PAID']), el('div', { className: 'pv' }, [fmt(paid)]) ]), el('div', { className: 'price-pip' }, [ el('div', { className: 'pl' }, [c.status === 'sold' ? 'SOLD' : 'WORTH']), el('div', { className: 'pv' }, [c.status === 'sold' ? fmt(sold) : fmt(worth)]) ]) ]), el('div', { className: `gain-badge ${gainClass}` }, [gainLabel]) ]), compActions ]);
     grid.appendChild(el('div', { className: `card-item ${c.status === 'sold' ? 'is-sold' : (c.status === 'wanted' ? 'is-wanted' : '')}`, onclick: () => openAdd(c.id) }, [imgWrap, body]));
   } wrap.appendChild(grid);
 }
@@ -363,7 +408,6 @@ async function saveCard(isBatch = false) {
   if (isSaving) return; const name = document.getElementById('f-player').value.trim(); if (!name) { alert('Player required.'); return; }
   isSaving = true; document.getElementById('saveBtn').textContent = '...';
   
-  // COMBINE GRADE LOGIC
   const gComp = document.getElementById('f-grade-comp').value;
   const gNum = document.getElementById('f-grade-num').value.trim();
   const finalGrade = gComp === 'raw' ? 'raw' : (gComp + (gNum ? ' ' + gNum : '')).trim();
@@ -392,7 +436,6 @@ function openAdd(id = null) {
   document.getElementById('addOverlay').classList.add('open'); document.getElementById('addTitle').textContent = id ? 'EDIT ENTRY' : 'NEW ENTRY';
   ['player','year','brand','num','paid','worth','sold','notes'].forEach(k => document.getElementById('f-'+k).value = c?.[k] || '');
   
-  // SPLIT GRADE LOGIC
   let gComp = 'raw', gNum = '';
   if (c?.grade && c.grade !== 'raw') {
       const parts = c.grade.split(' ');
@@ -407,7 +450,6 @@ function openAdd(id = null) {
   const dbBtn = document.getElementById('delBtn'); if (id) dbBtn.classList.add('show'); else dbBtn.classList.remove('show');
   document.getElementById('batchBtn').style.display = id ? 'none' : 'block';
   
-  // Format money on load
   ['f-paid', 'f-worth', 'f-sold'].forEach(id => { const el = document.getElementById(id); if(el.value) el.value = parseFloat(el.value).toFixed(2); });
 }
 
