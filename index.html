@@ -42,6 +42,12 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
 .search-box { flex: 1; background: var(--surface2); border: 1px solid var(--border); padding: 10px 15px; color: white; border-radius: 8px; outline: none; font-size: 14px; transition: border-color 0.2s; }
 .search-box:focus { border-color: var(--green); }
 
+/* THE MISSING TOGGLE BUTTON CSS (RESTORED) */
+.view-toggle { display: flex; gap: 6px; }
+.vbtn { padding: 8px 16px; background: var(--surface2); color: var(--text2); border: 1px solid var(--surface3); cursor: pointer; font-size: 12px; border-radius: 8px; font-weight: 600; transition: 0.2s; }
+.vbtn:hover { background: rgba(255,255,255,0.05); color: var(--text); }
+.vbtn.active { background: var(--green); color: var(--navy3); border-color: var(--green); }
+
 /* --- GRID & CARDS --- */
 .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px,1fr)); gap: 20px; }
 .card-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
