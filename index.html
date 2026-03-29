@@ -42,21 +42,13 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
 .search-box { flex: 1; background: var(--surface2); border: 1px solid var(--border); padding: 10px 15px; color: white; border-radius: 8px; outline: none; font-size: 14px; transition: border-color 0.2s; }
 .search-box:focus { border-color: var(--green); }
 
-/* --- LOADING & ERROR STATES --- */
-.state-msg { text-align: center; padding: 60px 20px; color: var(--text3); }
-.state-msg p { font-family: 'Oswald'; font-size: 16px; letter-spacing: 1px; text-transform: uppercase; margin-top:10px;}
-.spinner { width: 36px; height: 36px; border: 3px solid var(--surface3); border-top-color: var(--green); border-radius: 50%; animation: spin 0.7s linear infinite; margin: 0 auto 16px; }
-@keyframes spin { to { transform: rotate(360deg); } }
-.error-banner { background: rgba(239,68,68,0.1); border: 1px solid var(--danger); color: var(--danger); padding: 12px 16px; border-radius: 8px; margin-bottom: 20px; font-size: 13px; display: none; }
-.error-banner.show { display: block; }
-
-/* --- GRID --- */
+/* --- GRID & CARDS --- */
 .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px,1fr)); gap: 20px; }
 .card-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
 .card-item:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.4); border-color: var(--green); }
 .is-sold { opacity: 0.7 !important; filter: grayscale(0.4); }
 .is-wanted { opacity: 0.9; border-color: var(--blue); }
-.banner-sold { position: absolute; top: 12px; left: -28px; background: var(--danger); color: white; transform: rotate(-45deg); width: 100px; text-align: center; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 2px 4px rgba(0,0,0,0.3); z-index: 10; }
+.banner-sold { position: absolute; top: 12px; left: -28px; background: var(--danger); color: white; transform: rotate(-45deg); width: 100px; text-align: center; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; z-index: 10; }
 .card-img-wrap { height: 160px; background: #000; overflow: hidden; position: relative; }
 .card-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
 .note-indicator { position: absolute; bottom: 8px; right: 8px; background: var(--green); color: var(--navy); font-size: 10px; padding: 3px 6px; border-radius: 4px; font-weight: 700; }
@@ -67,8 +59,6 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
 .price-pip { background: var(--surface2); padding: 6px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05); }
 .price-pip .pl { font-size: 8px; text-transform: uppercase; color: var(--text3); margin-bottom: 2px; font-weight: 700; }
 .price-pip .pv { font-family: 'Oswald'; font-size: 11px; color: var(--green); }
-
-/* --- GAIN/LOSS BADGE --- */
 .gain-badge { margin-top: 8px; padding: 5px 8px; border-radius: 6px; font-family: 'Oswald'; font-size: 12px; font-weight: 700; text-align: center; }
 .gain-badge.up { background: rgba(105,190,40,0.15); color: var(--green); }
 .gain-badge.down { background: rgba(239,68,68,0.15); color: var(--danger); }
@@ -79,9 +69,8 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
 .card-table { width: 100%; border-collapse: collapse; background: var(--surface); border-radius: var(--radius); overflow: hidden; }
 .card-table th { text-align: left; color: var(--text3); font-family: 'Oswald'; font-size: 10px; text-transform: uppercase; padding: 15px 12px; border-bottom: 1px solid var(--border); background: rgba(0,0,0,0.15); }
 .card-table td { padding: 14px 12px; border-bottom: 1px solid rgba(255,255,255,0.03); font-size: 13px; vertical-align: middle; }
-.card-table tr:hover td { background: rgba(255,255,255,0.02); }
 
-/* --- MODAL (V1.3 WIDER NOT TALLER) --- */
+/* --- MODAL (V1.4) --- */
 .overlay { display: none; position: fixed; inset: 0; background: rgba(2,6,23,0.85); z-index: 500; align-items: center; justify-content: center; padding: 15px; -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
 .overlay.open { display: flex; }
 .modal { background: var(--surface); border-radius: 16px; width: 100%; max-width: 800px; max-height: 90dvh; display: flex; flex-direction: column; border: 1px solid var(--border2); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); overflow: hidden; }
@@ -103,8 +92,13 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
 /* --- MODERN INPUTS --- */
 .fi { width: 100%; background: rgba(255,255,255,0.03); border: 1px solid transparent; border-bottom: 2px solid var(--surface3); padding: 12px 14px; color: white; border-radius: 8px 8px 0 0; font-size: 14px; outline: none; font-family: 'Inter', sans-serif; transition: 0.2s; }
 .fi:focus { background: rgba(255,255,255,0.06); border-bottom-color: var(--green); }
+.fi:disabled { opacity: 0.4; cursor: not-allowed; }
 .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+
+/* --- MONEY WRAPPER --- */
+.money-wrap { position: relative; width: 100%; }
+.money-wrap::before { content: '$'; position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text3); font-weight: 600; font-size: 14px; pointer-events: none; }
+.money-wrap .fi { padding-left: 28px; }
 
 /* --- MODERN PILL TOGGLES --- */
 .status-row { display: flex; gap: 12px; margin-top: 4px; }
@@ -119,7 +113,8 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
 .btn-primary:hover { filter: brightness(1.1); }
 .btn-batch:hover { border-color: var(--blue); color: var(--blue); }
 .btn-ghost { background: transparent; border: none; color: var(--text3); font-size: 12px; font-weight: 600; cursor: pointer; padding: 10px; text-transform: uppercase; letter-spacing: 1px; }
-.btn-danger-icon { background: rgba(239,68,68,0.1); border: 1px solid var(--danger); color: var(--danger); width: 40px; height: 40px; border-radius: 8px; display: none; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; }
+.btn-danger-icon { background: rgba(239,68,68,0.1); border: 1px solid var(--danger); color: var(--danger); width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; opacity: 0; pointer-events: none; }
+.btn-danger-icon.show { opacity: 1; pointer-events: auto; }
 
 /* --- MOBILE SPECIFIC --- */
 @media (max-width: 768px) {
@@ -129,17 +124,13 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
   .sdbtn { white-space: nowrap; width: auto; margin-right: 8px; border-radius: 20px; margin-bottom: 0; }
   .content { padding: 15px; }
   .card-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
-  
-  /* Modal Mobile overrides */
   .modal { border-radius: 12px 12px 0 0; max-height: 95dvh; margin-top: auto; }
   .modal-body { flex-direction: column; padding: 15px; gap: 15px; }
   .modal-col-left { width: 100%; flex-direction: row; align-items: stretch; }
   .modern-upload { flex: 1; }
   .upload-preview { width: 100px; height: 100px; margin-bottom: 0; }
-  .grid-3 { grid-template-columns: 1fr 1fr; } /* Wrap prices on mobile */
-  .fi { font-size: 16px !important; padding: 14px 12px; } /* iOS Zoom fix */
-  
-  /* Sticky footer flex adjustment */
+  .fi { font-size: 16px !important; padding: 14px 12px; }
+  .money-wrap::before { font-size: 16px; }
   .modal-footer { padding: 12px 15px; padding-bottom: max(12px, env(safe-area-inset-bottom)); }
 }
 </style>
@@ -170,7 +161,6 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
   </div>
 
   <div class="content">
-    <div class="error-banner" id="errorBanner"></div>
     <div class="toolbar">
       <input type="text" id="searchBox" class="search-box" placeholder="Search by player, brand, notes..." oninput="render()">
       <div class="view-toggle">
@@ -224,19 +214,23 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
                     <option value="other">🎴 Other</option>
                 </select>
             </div>
-            <div class="grid-3">
-                <select id="f-grade" class="fi">
-                    <option value="raw">Raw</option>
+            
+            <div class="grid-2">
+                <select id="f-grade-comp" class="fi" onchange="checkGrade()">
+                    <option value="raw">Raw (Ungraded)</option>
                     <option value="PSA">PSA</option>
                     <option value="BGS">BGS</option>
                     <option value="SGC">SGC</option>
                     <option value="CGC">CGC</option>
                 </select>
-                <input type="number" id="f-paid" class="fi" placeholder="Paid $" min="0" step="0.01">
-                <input type="number" id="f-worth" class="fi" placeholder="Worth $" min="0" step="0.01">
+                <input type="number" id="f-grade-num" class="fi" placeholder="Grade (e.g. 9.5)" step="0.5" min="1" max="10" disabled>
             </div>
-            
-            <input type="number" id="f-sold" class="fi" placeholder="Sold For $ (If applicable)" min="0" step="0.01">
+
+            <div class="grid-2">
+                <div class="money-wrap"><input type="number" id="f-paid" class="fi" placeholder="Paid" min="0" step="0.01" onblur="formatMoney(this)"></div>
+                <div class="money-wrap"><input type="number" id="f-worth" class="fi" placeholder="Worth" min="0" step="0.01" onblur="formatMoney(this)"></div>
+            </div>
+            <div class="money-wrap"><input type="number" id="f-sold" class="fi" placeholder="Sold For (If applicable)" min="0" step="0.01" onblur="formatMoney(this)"></div>
             
             <div class="status-row">
                 <div id="sold-toggle" class="pill-toggle" onclick="toggleSold()">MARK AS SOLD</div>
@@ -266,6 +260,17 @@ const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 let cards = [], view = 'grid', editId = null, pendingImg = null, fStatus = 'all', isLoading = false, isSaving = false;
 const SI = { baseball:'⚾', basketball:'🏀', football:'🏈', hockey:'🏒', soccer:'⚽', other:'🎴' };
 
+// FORMAT MONEY ON BLUR
+function formatMoney(el) { if (el.value) el.value = parseFloat(el.value).toFixed(2); }
+
+// GRADE FIELD LOGIC
+function checkGrade() {
+    const comp = document.getElementById('f-grade-comp').value;
+    const numEl = document.getElementById('f-grade-num');
+    if (comp === 'raw') { numEl.value = ''; numEl.disabled = true; } 
+    else { numEl.disabled = false; }
+}
+
 function cleanNum(val) { return parseFloat(String(val || '').replace(/[^0-9.]/g, '')) || 0; }
 function fmt(n) { return '$' + Math.abs(n).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
 function el(tag, attrs = {}, children = []) {
@@ -277,20 +282,12 @@ function el(tag, attrs = {}, children = []) {
   return elem;
 }
 
-function setLoading(state) {
-  isLoading = state;
-  if (state) document.getElementById('cardWrap').innerHTML = `<div class="state-msg"><div class="spinner"></div><p>Loading Vault...</p></div>`;
-}
-
 async function load() {
-  setLoading(true);
   try {
     let { data, error } = await db.from('cards').select('*').order('ts', { ascending: false });
-    if (error && (error.code === '42703' || error.message?.includes('ts'))) {
-      const fallback = await db.from('cards').select('*'); data = fallback.data; error = fallback.error;
-    }
-    if (error) throw new Error(error.message); cards = data || [];
-  } catch (e) { cards = []; } finally { setLoading(false); updateStats(); render(); }
+    if (error && error.code === '42703') { const f = await db.from('cards').select('*'); data = f.data; }
+    cards = data || [];
+  } catch (e) { cards = []; } finally { updateStats(); render(); }
 }
 
 function updateStats() {
@@ -315,16 +312,16 @@ async function handleImage(e) {
     img.onload = () => {
       const canvas = document.createElement('canvas'); const scale = 800 / img.width; canvas.width = 800; canvas.height = img.height * scale;
       canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height); pendingImg = canvas.toDataURL('image/jpeg', 0.8);
-      const prev = document.getElementById('imgPrev'); prev.src = pendingImg; prev.style.display = 'block';
+      document.getElementById('imgPrev').src = pendingImg; document.getElementById('imgPrev').style.display = 'block';
     };
   }; reader.readAsDataURL(file);
 }
 
 function render() {
-  if (isLoading) return; const q = document.getElementById('searchBox').value.toLowerCase();
+  const q = document.getElementById('searchBox').value.toLowerCase();
   const list = cards.filter(c => (fStatus === 'all' || c.status === fStatus) && `${c.player} ${c.brand} ${c.notes}`.toLowerCase().includes(q));
   const wrap = document.getElementById('cardWrap'); wrap.innerHTML = '';
-  if (list.length === 0) { wrap.innerHTML = `<div class="state-msg"><div style="font-size:40px">🃏</div><p>No cards found</p></div>`; return; }
+  if (list.length === 0) { wrap.innerHTML = `<div style="text-align:center; padding:60px 20px; color:var(--text3);"><div style="font-size:40px">🃏</div><p style="font-family:'Oswald';font-size:16px;text-transform:uppercase;margin-top:10px;">No cards found</p></div>`; return; }
   if (view === 'grid') renderGrid(wrap, list); else renderTable(wrap, list);
 }
 
@@ -337,7 +334,8 @@ function renderGrid(wrap, list) {
     else if (c.status === 'sold') { gain = sold - paid; gainLabel = (gain >= 0 ? '+' : '-') + fmt(gain); gainClass = gain > 0 ? 'up' : gain < 0 ? 'down' : 'flat'; } 
     else if (c.status === 'wanted') { gainLabel = 'WISHLIST'; gainClass = 'blue'; }
 
-    const imgWrap = el('div', { className: 'card-img-wrap' }, [ c.status === 'sold' ? el('div', { className: 'banner-sold' }, ['SOLD']) : null, c.img ? el('img', { src: c.img, loading: 'lazy' }) : el('div', { style: { paddingTop: '60px', textAlign: 'center', fontSize: '30px', opacity: '0.2' } }, [SI[c.sport] || '🎴']), c.notes ? el('div', { className: 'note-indicator' }, ['NOTE']) : null ]);
+    const displayGrade = c.grade === 'raw' ? 'RAW' : c.grade;
+    const imgWrap = el('div', { className: 'card-img-wrap' }, [ c.status === 'sold' ? el('div', { className: 'banner-sold' }, ['SOLD']) : null, c.img ? el('img', { src: c.img, loading: 'lazy' }) : el('div', { style: { paddingTop: '60px', textAlign: 'center', fontSize: '30px', opacity: '0.2' } }, [SI[c.sport] || '🎴']), el('div', { className: 'note-indicator', style: {background: displayGrade === 'RAW' ? 'var(--surface3)' : 'var(--blue)', color: 'white'} }, [displayGrade]) ]);
     const body = el('div', { className: 'card-body' }, [ el('div', { className: 'card-player' }, [c.player || '']), el('div', { className: 'card-meta' }, [`${c.year || ''} ${c.brand || ''}`.trim()]), el('div', { className: 'card-prices' }, [ el('div', { className: 'price-pip' }, [ el('div', { className: 'pl' }, ['PAID']), el('div', { className: 'pv' }, [fmt(paid)]) ]), el('div', { className: 'price-pip' }, [ el('div', { className: 'pl' }, [c.status === 'sold' ? 'SOLD' : 'WORTH']), el('div', { className: 'pv' }, [c.status === 'sold' ? fmt(sold) : fmt(worth)]) ]) ]), el('div', { className: `gain-badge ${gainClass}` }, [gainLabel]) ]);
     grid.appendChild(el('div', { className: `card-item ${c.status === 'sold' ? 'is-sold' : (c.status === 'wanted' ? 'is-wanted' : '')}`, onclick: () => openAdd(c.id) }, [imgWrap, body]));
   } wrap.appendChild(grid);
@@ -349,7 +347,7 @@ function renderTable(wrap, list) {
             const p = cleanNum(c.paid), w = cleanNum(c.worth), s = cleanNum(c.sold);
             const g = c.status === 'sold' ? s - p : w - p; const gs = c.status === 'wanted' ? '--' : (g>=0?'+':'-')+fmt(g);
             return `<tr style="opacity:${c.status==='sold'?'0.6':'1'};cursor:pointer" onclick="openAdd('${c.id}')">
-                <td><b>${c.player||''}</b><br><small>${c.year||''} ${c.brand||''}</small></td><td><b>${(c.grade||'raw').toUpperCase()}</b></td>
+                <td><b>${c.player||''}</b><br><small>${c.year||''} ${c.brand||''}</small></td><td><b>${c.grade === 'raw' ? 'RAW' : c.grade}</b></td>
                 <td>${fmt(p)}</td><td style="color:var(--green)">${c.status==='wanted'?fmt(w):(c.status==='sold'?'--':fmt(w))}</td>
                 <td><b>${c.status==='sold'?fmt(s):'--'}</b></td><td style="color:${g>=0?'var(--green)':'var(--danger)'};font-weight:700">${gs}</td></tr>`;
         }).join('')}</tbody></table>`;
@@ -358,10 +356,16 @@ function renderTable(wrap, list) {
 async function saveCard(isBatch = false) {
   if (isSaving) return; const name = document.getElementById('f-player').value.trim(); if (!name) { alert('Player required.'); return; }
   isSaving = true; document.getElementById('saveBtn').textContent = '...';
+  
+  // COMBINE GRADE LOGIC
+  const gComp = document.getElementById('f-grade-comp').value;
+  const gNum = document.getElementById('f-grade-num').value.trim();
+  const finalGrade = gComp === 'raw' ? 'raw' : (gComp + (gNum ? ' ' + gNum : '')).trim();
+
   try {
-    const card = { id: editId || Math.random().toString(36).substring(2, 11), player: name, year: document.getElementById('f-year').value.trim(), brand: document.getElementById('f-brand').value.trim(), num: document.getElementById('f-num').value.trim(), sport: document.getElementById('f-sport').value, grade: document.getElementById('f-grade').value, paid: cleanNum(document.getElementById('f-paid').value), worth: cleanNum(document.getElementById('f-worth').value), sold: cleanNum(document.getElementById('f-sold').value), status: document.getElementById('f-status').value, notes: document.getElementById('f-notes').value.trim(), img: pendingImg || (editId ? cards.find(c => c.id === editId)?.img || null : null), ts: Date.now() };
+    const card = { id: editId || Math.random().toString(36).substring(2, 11), player: name, year: document.getElementById('f-year').value.trim(), brand: document.getElementById('f-brand').value.trim(), num: document.getElementById('f-num').value.trim(), sport: document.getElementById('f-sport').value, grade: finalGrade, paid: cleanNum(document.getElementById('f-paid').value), worth: cleanNum(document.getElementById('f-worth').value), sold: cleanNum(document.getElementById('f-sold').value), status: document.getElementById('f-status').value, notes: document.getElementById('f-notes').value.trim(), img: pendingImg || (editId ? cards.find(c => c.id === editId)?.img || null : null), ts: Date.now() };
     await db.from('cards').upsert([card]); const idx = cards.findIndex(c => c.id === card.id); if (idx >= 0) cards[idx] = card; else cards.unshift(card);
-    updateStats(); if (isBatch) { editId = null; pendingImg = null; ['f-player','f-year','f-brand','f-num','f-paid','f-worth','f-sold','f-notes'].forEach(id => document.getElementById(id).value = ''); setStatusUI('own'); clearImage(); render(); } else { closeAdd(); render(); }
+    updateStats(); if (isBatch) { editId = null; pendingImg = null; ['f-player','f-year','f-brand','f-num','f-paid','f-worth','f-sold','f-notes','f-grade-num'].forEach(id => document.getElementById(id).value = ''); setStatusUI('own'); document.getElementById('f-grade-comp').value = 'raw'; checkGrade(); clearImage(); render(); } else { closeAdd(); render(); }
   } catch (e) { alert('Save failed'); } finally { isSaving = false; document.getElementById('saveBtn').textContent = 'Save Entry'; }
 }
 
@@ -381,10 +385,26 @@ function openAdd(id = null) {
   editId = id; pendingImg = null; const c = id ? cards.find(x => x.id === id) : null;
   document.getElementById('addOverlay').classList.add('open'); document.getElementById('addTitle').textContent = id ? 'EDIT ENTRY' : 'NEW ENTRY';
   ['player','year','brand','num','paid','worth','sold','notes'].forEach(k => document.getElementById('f-'+k).value = c?.[k] || '');
-  document.getElementById('f-grade').value = c?.grade || 'raw'; document.getElementById('f-sport').value = c?.sport || 'baseball';
+  
+  // SPLIT GRADE LOGIC
+  let gComp = 'raw', gNum = '';
+  if (c?.grade && c.grade !== 'raw') {
+      const parts = c.grade.split(' ');
+      gComp = parts[0]; gNum = parts.slice(1).join(' ');
+  }
+  document.getElementById('f-grade-comp').value = gComp;
+  document.getElementById('f-grade-num').value = gNum;
+  checkGrade();
+
+  document.getElementById('f-sport').value = c?.sport || 'baseball';
   setStatusUI(c?.status || 'own'); const prev = document.getElementById('imgPrev'); if (c?.img) { prev.src = c.img; prev.style.display = 'block'; } else clearImage();
-  document.getElementById('delBtn').style.display = id ? 'flex' : 'none'; document.getElementById('batchBtn').style.display = id ? 'none' : 'block';
+  const dbBtn = document.getElementById('delBtn'); if (id) dbBtn.classList.add('show'); else dbBtn.classList.remove('show');
+  document.getElementById('batchBtn').style.display = id ? 'none' : 'block';
+  
+  // Format money on load
+  ['f-paid', 'f-worth', 'f-sold'].forEach(id => { const el = document.getElementById(id); if(el.value) el.value = parseFloat(el.value).toFixed(2); });
 }
+
 function closeAdd() { document.getElementById('addOverlay').classList.remove('open'); }
 document.getElementById('addOverlay').addEventListener('mousedown', function(e) { if (e.target === this) closeAdd(); });
 
