@@ -73,7 +73,7 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
 .gain-badge.up { background: rgba(105,190,40,0.15); color: var(--green); }
 .gain-badge.down { background: rgba(239,68,68,0.15); color: var(--danger); }
 .gain-badge.flat { background: rgba(255,255,255,0.05); color: var(--text3); }
-.gain-badge.blue { background: rgba(59,130,246,0.15); color: var(--blue); } /* Wishlist */
+.gain-badge.blue { background: rgba(59,130,246,0.15); color: var(--blue); }
 
 /* --- TABLE --- */
 .card-table { width: 100%; border-collapse: collapse; background: var(--surface); border-radius: var(--radius); overflow: hidden; }
@@ -85,17 +85,20 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
 .overlay { display: none; position: fixed; inset: 0; background: rgba(2,6,23,0.9); z-index: 500; align-items: center; justify-content: center; padding: 15px; -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
 .overlay.open { display: flex; }
 .modal { background: var(--surface); padding: 24px; border-radius: 16px; width: 100%; max-width: 520px; max-height: 92vh; overflow-y: auto; border: 1px solid var(--border2); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); }
-.fi { width: 100%; background: var(--surface2); border: 1px solid var(--surface3); padding: 12px; color: white; margin-bottom: 12px; border-radius: 8px; font-size: 14px; outline: none; font-family: 'Inter', sans-serif; }
+.fi { width: 100%; background: var(--surface2); border: 1px solid var(--surface3); padding: 12px; color: white; margin-bottom: 12px; border-radius: 8px; font-size: 14px; outline: none; font-family: 'Inter', sans-serif; transition: 0.2s; }
 .fi:focus { border-color: var(--green); }
-.upload-area { border: 2px dashed var(--surface3); padding: 20px; text-align: center; margin-bottom: 15px; cursor: pointer; border-radius: 12px; transition: 0.2s; }
-.upload-area:hover { border-color: var(--green); background: rgba(105,190,40,0.02); }
-.upload-preview { width: 100%; max-height: 180px; object-fit: contain; border-radius: 8px; margin-top: 10px; display: none; }
+
+/* --- SLEEK DUAL UPLOAD --- */
+.upload-split { display: flex; gap: 12px; margin-bottom: 15px; }
+.upload-half { flex: 1; background: var(--surface2); border: 1px solid var(--surface3); padding: 16px 10px; text-align: center; border-radius: 10px; cursor: pointer; transition: 0.2s; }
+.upload-half:hover { border-color: var(--green); background: rgba(105,190,40,0.03); }
+.upload-preview { width: 100%; max-height: 180px; object-fit: contain; border-radius: 8px; margin-bottom: 15px; display: none; cursor: pointer; border: 1px solid var(--border2); }
 
 /* --- BUTTONS & ALERTS --- */
-.btn-primary { background: var(--green); color: var(--navy3); font-family: 'Oswald'; font-weight: 700; padding: 10px 22px; border: none; border-radius: 8px; cursor: pointer; text-transform: uppercase; font-size: 13px; transition:0.2s;}
-.btn-primary:hover { filter: brightness(1.1); }
-.btn-batch { background: var(--blue); color: white; font-family: 'Oswald'; font-weight: 700; padding: 10px 22px; border: none; border-radius: 8px; cursor: pointer; text-transform: uppercase; font-size: 13px; transition:0.2s;}
-.btn-batch:hover { filter: brightness(1.1); }
+.btn-primary { background: var(--green); color: var(--navy3); font-family: 'Oswald'; font-weight: 700; padding: 12px 22px; border: none; border-radius: 8px; cursor: pointer; text-transform: uppercase; font-size: 13px; transition:0.2s;}
+.btn-primary:hover { filter: brightness(1.1); box-shadow: 0 4px 12px rgba(105,190,40,0.3); }
+.btn-batch { background: var(--blue); color: white; font-family: 'Oswald'; font-weight: 700; padding: 12px 22px; border: none; border-radius: 8px; cursor: pointer; text-transform: uppercase; font-size: 13px; transition:0.2s;}
+.btn-batch:hover { filter: brightness(1.1); box-shadow: 0 4px 12px rgba(59,130,246,0.3); }
 .vbtn { padding: 6px 14px; background: var(--surface2); color: var(--text2); border: 1px solid var(--surface3); cursor: pointer; font-size: 11px; border-radius: 6px; font-weight: 600; }
 .vbtn.active { background: var(--green); color: black; border-color: var(--green); }
 
@@ -120,7 +123,7 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
   .card-table { font-size: 12px; }
   .card-table th, .card-table td { padding: 10px 8px; }
   
-  /* CRITICAL: Forces 16px font on inputs to prevent iOS Safari Auto-Zoom */
+  /* Forces 16px font on inputs to prevent iOS Safari Auto-Zoom */
   .fi { font-size: 16px !important; padding: 14px 12px; }
 }
 </style>
@@ -132,13 +135,13 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
     <div class="jtr-icon">J</div>
     <div class="logo">Card Vault <em>JTR</em></div>
   </div>
-  <button class="btn-primary" onclick="openAdd()">+ Add Entry</button>
+  <button class="btn-primary" style="padding: 8px 16px;" onclick="openAdd()">+ Add Entry</button>
 </div>
 
 <div class="stats-bar">
   <div class="stat-cell"><div class="stat-label">Total Assets</div><div class="stat-value" id="s-total">0</div></div>
-  <div class="stat-cell"><div class="stat-label">Investment</div><div class="stat-value" id="s-paid">$0.00</div></div>
-  <div class="stat-cell"><div class="stat-label">Vault Value</div><div class="stat-value" id="s-worth">$0.00</div></div>
+  <div class="stat-cell"><div class="stat-label">Vault Equity</div><div class="stat-value" id="s-worth">$0.00</div></div>
+  <div class="stat-cell"><div class="stat-label">Realized Profit</div><div class="stat-value" id="s-realized">$0.00</div></div>
   <div class="stat-cell"><div class="stat-label">Net Standing</div><div class="stat-value" id="s-gain">$0.00</div></div>
 </div>
 
@@ -165,12 +168,22 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
 
 <div class="overlay" id="addOverlay">
   <div class="modal">
-    <h2 id="addTitle" style="margin-bottom:15px; font-family:'Oswald'; color:var(--green)">NEW VAULT ENTRY</h2>
-    <div class="upload-area" id="uploadArea">
-      <p style="font-size:12px; color:var(--text2)">📸 Click to Upload or Capture</p>
-      <input type="file" id="imgFile" hidden accept="image/*" capture="environment" onchange="handleImage(event)">
-      <img id="imgPrev" class="upload-preview">
+    <h2 id="addTitle" style="margin-bottom:15px; font-family:'Oswald'; color:var(--green); font-size: 20px;">NEW VAULT ENTRY</h2>
+    
+    <div class="upload-split">
+      <div class="upload-half" onclick="document.getElementById('imgCamera').click()">
+        <div style="font-size:22px; margin-bottom:4px;">📸</div>
+        <div style="font-size:11px; color:var(--text2); text-transform:uppercase; font-weight:700; letter-spacing:1px;">Camera</div>
+      </div>
+      <div class="upload-half" onclick="document.getElementById('imgFile').click()">
+        <div style="font-size:22px; margin-bottom:4px;">📁</div>
+        <div style="font-size:11px; color:var(--text2); text-transform:uppercase; font-weight:700; letter-spacing:1px;">File Upload</div>
+      </div>
     </div>
+    <input type="file" id="imgCamera" hidden accept="image/*" capture="environment" onchange="handleImage(event)">
+    <input type="file" id="imgFile" hidden accept="image/*" onchange="handleImage(event)">
+    <img id="imgPrev" class="upload-preview" title="Tap to remove image" onclick="clearImage()">
+
     <input type="text" id="f-player" class="fi" placeholder="Player Name *" autocomplete="off">
     <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px">
       <input type="text" id="f-year" class="fi" placeholder="Year" autocomplete="off">
@@ -229,9 +242,10 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
       <button class="btn-primary" style="flex:1" id="saveBtn" onclick="saveCard(false)">Save & Close</button>
       <button id="batchBtn" class="btn-batch" style="flex:1" onclick="saveCard(true)">Batch Next</button>
     </div>
+    
     <div style="display:flex; justify-content:space-between; align-items:center; margin-top:20px; border-top:1px solid var(--surface3); padding-top:15px">
-      <button id="delBtn" style="background:var(--danger); border:none; color:white; padding:8px 14px; border-radius:6px; font-weight:700; cursor:pointer; display:none" onclick="deleteCard()">DELETE</button>
-      <button onclick="closeAdd()" style="background:none; border:none; color:var(--text3); font-size:12px; cursor:pointer; font-weight:600; margin-left:auto;">CANCEL</button>
+      <button id="delBtn" style="background:rgba(239,68,68,0.1); border:1px solid var(--danger); color:var(--danger); padding:10px 16px; border-radius:8px; font-weight:700; cursor:pointer; display:none; transition:0.2s;" onclick="deleteCard()">DELETE</button>
+      <button onclick="closeAdd()" style="background:transparent; border:none; color:var(--text3); font-size:12px; cursor:pointer; font-weight:600; margin-left:auto; padding:15px; margin-right:-10px; letter-spacing:1px;">CANCEL</button>
     </div>
   </div>
 </div>
@@ -305,7 +319,7 @@ function setLoading(state) {
   }
 }
 
-// ─── DATA & MATH ──────────────────────────────────────────────────────────────
+// ─── DATA & NEW FINANCIAL MATH ────────────────────────────────────────────────
 async function load() {
   setLoading(true);
   try {
@@ -327,10 +341,11 @@ async function load() {
 }
 
 function updateStats() {
-  let totalPaid = 0;
-  let vaultWorth = 0;
-  let cashIn = 0;
-  let assetCount = 0; // Only counts cards owned or sold (ignores wishlist)
+  let totalPaid = 0;       // All money ever spent (on owned + sold)
+  let vaultWorth = 0;      // Current estimated value of 'own'
+  let cashIn = 0;          // Total cash received from 'sold'
+  let paidForSold = 0;     // Cost basis for ONLY the cards that were sold
+  let assetCount = 0;      // Total items flowing through vault (ignores wishlist)
 
   cards.forEach(c => {
     const paid = cleanNum(c.paid);
@@ -344,26 +359,37 @@ function updateStats() {
     } else if (c.status === 'sold') {
       totalPaid += paid;
       cashIn += soldAmt;
+      paidForSold += paid; // Track what we paid for the cards we actually sold
       assetCount++;
     }
-    // Wishlist items ('wanted') do not affect financials
   });
 
+  // Realized Profit = Cash in from sales minus what we paid for those specific sold cards
+  const realizedProfit = cashIn - paidForSold;
+
+  // Net Standing = Total Portfolio Equity (Value of current box + Cash from sales - Total ever spent)
   const net = (vaultWorth + cashIn) - totalPaid;
 
   document.getElementById('s-total').textContent = assetCount;
-  document.getElementById('s-paid').textContent  = fmt(totalPaid);
   document.getElementById('s-worth').textContent = fmt(vaultWorth);
   
+  const r = document.getElementById('s-realized');
+  r.textContent = (realizedProfit >= 0 ? '+' : '') + fmt(realizedProfit);
+  r.style.color = realizedProfit >= 0 ? 'var(--green)' : 'var(--danger)';
+
   const g = document.getElementById('s-gain');
-  g.textContent  = (net >= 0 ? '+' : '-') + fmt(net);
-  g.style.color  = net >= 0 ? 'var(--green)' : 'var(--danger)';
+  g.textContent = (net >= 0 ? '+' : '') + fmt(net);
+  g.style.color = net >= 0 ? 'var(--green)' : 'var(--danger)';
 }
 
 // ─── IMAGE HANDLING ───────────────────────────────────────────────────────────
-document.getElementById('uploadArea').addEventListener('click', () => {
-  document.getElementById('imgFile').click();
-});
+function clearImage() {
+    pendingImg = null;
+    document.getElementById('imgPrev').src = '';
+    document.getElementById('imgPrev').style.display = 'none';
+    document.getElementById('imgCamera').value = '';
+    document.getElementById('imgFile').value = '';
+}
 
 async function handleImage(e) {
   const file = e.target.files[0];
@@ -502,7 +528,7 @@ function renderTable(wrap, list) {
         gainColor = gain >= 0 ? 'var(--green)' : 'var(--danger)';
         soldStr = fmt(sold);
     } else {
-        worthStr = fmt(worth); // Wishlist
+        worthStr = fmt(worth);
     }
 
     const playerCell = el('td', {}, [
@@ -570,9 +596,10 @@ async function saveCard(isBatch = false) {
       document.getElementById('f-worth').value = '';
       document.getElementById('f-sold').value = '';
       document.getElementById('f-notes').value = '';
-      setStatusUI('own'); // Resets toggles safely for the next card
+      setStatusUI('own'); 
       const prev = document.getElementById('imgPrev');
       prev.src = ''; prev.style.display = 'none';
+      document.getElementById('imgCamera').value = '';
       document.getElementById('imgFile').value = '';
       render();
     } else {
@@ -654,6 +681,7 @@ function openAdd(id = null) {
   document.getElementById('f-grade').value  = c?.grade  || 'raw';
   document.getElementById('f-notes').value  = c?.notes  || '';
   document.getElementById('f-sport').value  = c?.sport  || 'baseball';
+  document.getElementById('imgCamera').value  = '';
   document.getElementById('imgFile').value  = '';
 
   setStatusUI(c?.status || 'own');
