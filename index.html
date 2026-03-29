@@ -33,8 +33,8 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
 
 /* --- LAYOUT --- */
 .main { display: flex; min-height: calc(100vh - 112px); align-items: stretch; }
-.sidebar { width: 210px; background: var(--surface); border-right: 1px solid var(--border); padding: 20px 0; flex-shrink: 0; display: flex; flex-direction: column; }
-.sdbtn { display: flex; align-items: center; width: 90%; margin: 0 auto 4px; background: none; border: none; color: var(--text2); padding: 10px 15px; cursor: pointer; text-align: left; font-size: 13px; border-radius: 8px; transition: 0.2s; font-family: 'Inter', sans-serif; }
+.sidebar { width: 210px; background: var(--surface); border-right: 1px solid var(--border); padding: 20px 15px; flex-shrink: 0; display: flex; flex-direction: column; }
+.sdbtn { display: flex; align-items: center; width: 100%; margin: 0 auto 4px; background: none; border: none; color: var(--text2); padding: 10px 15px; cursor: pointer; text-align: left; font-size: 13px; border-radius: 8px; transition: 0.2s; font-family: 'Inter', sans-serif; }
 .sdbtn:hover { background: rgba(255,255,255,0.03); color: var(--text); }
 .sdbtn.active { color: var(--green); background: rgba(105,190,40,0.1); font-weight: 600; }
 .content { flex: 1; padding: 25px; min-width: 0; }
@@ -46,8 +46,22 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
 .vbtn:hover { background: rgba(255,255,255,0.05); color: var(--text); }
 .vbtn.active { background: var(--green); color: var(--navy3); border-color: var(--green); }
 
+/* --- PERFORMANCE WIDGET (DONUT & GLASS BUBBLE) --- */
+.perf-widget { margin-top: 25px; padding: 20px 15px; background: rgba(255,255,255,0.02); border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); text-align: center; box-shadow: inset 0 0 20px rgba(0,0,0,0.2); }
+.perf-widget h3 { font-family: 'Oswald'; font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; }
+.donut-wrap { position: relative; width: 120px; height: 120px; margin: 0 auto; }
+.donut { width: 100%; height: 100%; transform: rotate(-90deg); }
+.donut-bg { fill: none; stroke: rgba(255,255,255,0.05); stroke-width: 3; }
+.donut-fill { fill: none; stroke: var(--green); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 0, 100; transition: stroke-dasharray 1.5s cubic-bezier(0.16, 1, 0.3, 1); }
+.donut-fill.loss { stroke: var(--danger); }
+.donut-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: 'Oswald'; font-size: 22px; color: white; font-weight: 700; }
+.glass-bubble { margin-top: 20px; background: rgba(255,255,255,0.05); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); padding: 12px; border-radius: 12px; display: block; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+.gb-label { font-size: 9px; color: var(--text3); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 4px; }
+.gb-val { font-family: 'Oswald'; font-size: 18px; color: var(--green); font-weight: 600; letter-spacing: 0.5px; }
+.gb-val.loss { color: var(--danger); }
+
 /* --- GRID & CARDS --- */
-.card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px,1fr)); gap: 20px; }
+.card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px,1fr)); gap: 20px; }
 .card-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; }
 .card-item:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.4); border-color: var(--green); }
 .is-sold { opacity: 0.7 !important; filter: grayscale(0.4); }
@@ -56,18 +70,25 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
 .card-img-wrap { height: 160px; background: #000; overflow: hidden; position: relative; flex-shrink: 0; }
 .card-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
 .note-indicator { position: absolute; bottom: 8px; right: 8px; background: var(--green); color: var(--navy); font-size: 10px; padding: 3px 6px; border-radius: 4px; font-weight: 700; }
-.card-body { padding: 12px; display: flex; flex-direction: column; flex: 1; justify-content: space-between; }
+.card-body { padding: 14px; display: flex; flex-direction: column; flex: 1; justify-content: space-between; }
 .card-player { font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 2px; }
 .card-meta { font-size: 11px; color: var(--text3); margin-bottom: 10px; font-weight: 500; }
 .card-prices { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 8px; }
 .price-pip { background: var(--surface2); padding: 6px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05); }
 .price-pip .pl { font-size: 8px; text-transform: uppercase; color: var(--text3); margin-bottom: 2px; font-weight: 700; }
 .price-pip .pv { font-family: 'Oswald'; font-size: 11px; color: var(--green); }
-.gain-badge { padding: 5px 8px; border-radius: 6px; font-family: 'Oswald'; font-size: 12px; font-weight: 700; text-align: center; margin-bottom: 10px; }
+
+/* --- GLASS PILLS (CARD LEVEL) --- */
+.pill-wrap { display: flex; gap: 6px; margin-bottom: 10px; align-items: stretch; }
+.gain-badge { flex: 1; padding: 5px 8px; border-radius: 6px; font-family: 'Oswald'; font-size: 12px; font-weight: 700; text-align: center; }
 .gain-badge.up { background: rgba(105,190,40,0.15); color: var(--green); }
 .gain-badge.down { background: rgba(239,68,68,0.15); color: var(--danger); }
 .gain-badge.flat { background: rgba(255,255,255,0.05); color: var(--text3); }
 .gain-badge.blue { background: rgba(59,130,246,0.15); color: var(--blue); }
+.glass-pill { padding: 5px 8px; border-radius: 6px; font-family: 'Oswald'; font-size: 12px; font-weight: 700; text-align: center; background: rgba(255,255,255,0.05); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; min-width: 45px; }
+.glass-pill.up { color: var(--green); border-color: rgba(105,190,40,0.3); }
+.glass-pill.down { color: var(--danger); border-color: rgba(239,68,68,0.3); }
+.glass-pill.flat { color: var(--text3); display: none; } /* Hide 0% pill to keep clean */
 
 /* --- COMPS BUTTONS --- */
 .comp-row { display: flex; gap: 6px; align-items: center; justify-content: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 10px; }
@@ -100,7 +121,7 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
 .m-up-label { font-size: 10px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; }
 .upload-preview { width: 100%; height: 260px; object-fit: cover; border-radius: 10px; display: none; cursor: pointer; border: 1px solid var(--border2); }
 
-/* --- INPUTS --- */
+/* --- INPUTS & TOGGLES --- */
 .fi { width: 100%; background: rgba(255,255,255,0.03); border: 1px solid transparent; border-bottom: 2px solid var(--surface3); padding: 12px 14px; color: white; border-radius: 8px 8px 0 0; font-size: 14px; outline: none; font-family: 'Inter', sans-serif; transition: 0.2s; }
 .fi:focus { background: rgba(255,255,255,0.06); border-bottom-color: var(--green); }
 .fi:disabled { opacity: 0.4; cursor: not-allowed; }
@@ -109,8 +130,6 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
 .money-wrap { position: relative; width: 100%; }
 .money-wrap::before { content: '$'; position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text3); font-weight: 600; font-size: 14px; pointer-events: none; }
 .money-wrap .fi { padding-left: 28px; }
-
-/* --- TOGGLES & FOOTER --- */
 .status-row { display: flex; gap: 12px; margin-top: 4px; }
 .pill-toggle { flex: 1; background: rgba(255,255,255,0.03); border: 1px solid var(--surface3); padding: 10px; border-radius: 8px; text-align: center; font-size: 12px; font-weight: 600; cursor: pointer; color: var(--text2); transition: 0.2s; }
 .pill-toggle.sold-on { background: rgba(239,68,68,0.1); border-color: var(--danger); color: var(--danger); }
@@ -124,12 +143,23 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
 .btn-danger-icon { background: rgba(239,68,68,0.1); border: 1px solid var(--danger); color: var(--danger); width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; opacity: 0; pointer-events: none; }
 .btn-danger-icon.show { opacity: 1; pointer-events: auto; }
 
-/* --- MOBILE --- */
+/* --- MOBILE SPECIFIC --- */
 @media (max-width: 768px) {
   .stats-bar { grid-template-columns: 1fr 1fr; }
   .main { flex-direction: column; }
-  .sidebar { width: 100%; display: flex; overflow-x: auto; padding: 10px; border-right: none; border-bottom: 1px solid var(--border); }
-  .sdbtn { white-space: nowrap; width: auto; margin-right: 8px; border-radius: 20px; margin-bottom: 0; }
+  
+  /* Mobile Sidebar & Widget Reshape */
+  .sidebar { width: 100%; padding: 15px; border-right: none; border-bottom: 1px solid var(--border); display: block; }
+  .sidebar-buttons { display: flex; overflow-x: auto; gap: 8px; padding-bottom: 5px; }
+  .sdbtn { white-space: nowrap; width: auto; margin: 0; border-radius: 20px; flex-shrink: 0; }
+  
+  /* Transforms the Donut into a horizontal banner on phones */
+  .perf-widget { display: flex; flex-direction: row; align-items: center; justify-content: space-between; padding: 12px 15px; margin-top: 15px; }
+  .perf-widget h3 { display: none; }
+  .donut-wrap { width: 60px; height: 60px; margin: 0; }
+  .donut-text { font-size: 14px; }
+  .glass-bubble { margin-top: 0; padding: 8px 12px; box-shadow: none; text-align: right; border: none; background: transparent; }
+  
   .content { padding: 15px; }
   .card-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
   .modal { border-radius: 12px 12px 0 0; max-height: 95dvh; margin-top: auto; }
@@ -162,10 +192,27 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
 
 <div class="main">
   <div class="sidebar">
-    <button class="sdbtn active" onclick="sf('all',this)">All Cards</button>
-    <button class="sdbtn" onclick="sf('own',this)">In Collection</button>
-    <button class="sdbtn" onclick="sf('sold',this)">Sold History</button>
-    <button class="sdbtn" onclick="sf('wanted',this)">Wishlist</button>
+    <div class="sidebar-buttons">
+        <button class="sdbtn active" onclick="sf('all',this)">All Cards</button>
+        <button class="sdbtn" onclick="sf('own',this)">In Collection</button>
+        <button class="sdbtn" onclick="sf('sold',this)">Sold History</button>
+        <button class="sdbtn" onclick="sf('wanted',this)">Wishlist</button>
+    </div>
+    
+    <div class="perf-widget">
+        <h3>Sold Performance</h3>
+        <div class="donut-wrap">
+            <svg viewBox="0 0 36 36" class="donut">
+              <path class="donut-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+              <path class="donut-fill" id="donut-fill" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+            </svg>
+            <div class="donut-text" id="donut-text">0%</div>
+        </div>
+        <div class="glass-bubble">
+           <div class="gb-label">Total Return</div>
+           <div class="gb-val" id="gb-profit">+$0.00</div>
+        </div>
+    </div>
   </div>
 
   <div class="content">
@@ -275,54 +322,63 @@ const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 let cards = [], view = 'grid', editId = null, pendingImg = null, fStatus = 'all', isLoading = false, isSaving = false;
 const SI = { baseball:'⚾', basketball:'🏀', football:'🏈', hockey:'🏒', soccer:'⚽', other:'🎴' };
 
-// --- COMPS ENGINE ---
-async function runComps(player, year, brand, grade, site, event) {
-    if (event) event.stopPropagation(); // Stop card from opening when button is clicked
-    if (!player) return alert("Please enter at least a player name first!");
-    
-    // Build the query: "2003 Topps LeBron James PSA 10"
-    const qParts = [year, brand, player, (grade === 'raw' || grade === 'RAW' ? '' : grade)];
-    const query = qParts.filter(Boolean).join(' ').trim();
-    
-    if (site === 'ebay') {
-        const url = `https://www.ebay.com/sch/i.html?_nkw=${encodeURIComponent(query)}&LH_Sold=1&LH_Complete=1`;
-        window.open(url, '_blank');
-    } else if (site === '130') {
-        try { 
-            await navigator.clipboard.writeText(query); 
-            alert(`Copied: "${query}" to your clipboard!\n\nJust hit Paste in the 130Point search bar.`);
-        } catch(e) { console.log('Clipboard blocked, proceed anyway'); }
-        window.open('https://130point.com/sales/', '_blank');
-    }
+// --- ANIMATION ENGINE ---
+function animateValue(id, start, end, duration) {
+    if (start === end) return;
+    let obj = document.getElementById(id);
+    let startTimestamp = null;
+    const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        const currentVal = Math.floor(progress * (end - start) + start);
+        obj.innerHTML = currentVal + '%';
+        if (progress < 1) { window.requestAnimationFrame(step); } 
+        else { obj.innerHTML = end + '%'; }
+    };
+    window.requestAnimationFrame(step);
 }
 
+function updateDonut(roiPercent, profitAmount) {
+    const fill = document.getElementById('donut-fill');
+    const text = document.getElementById('donut-text');
+    const bubble = document.getElementById('gb-profit');
+    
+    // Update Bubble Text
+    bubble.textContent = (profitAmount >= 0 ? '+' : '') + fmt(profitAmount);
+    bubble.className = profitAmount >= 0 ? 'gb-val' : 'gb-val loss';
+    fill.className.baseVal = profitAmount >= 0 ? 'donut-fill' : 'donut-fill loss';
+
+    // Math for drawing the SVG circle
+    let drawPercent = Math.min(Math.abs(roiPercent), 100); // Caps the circle at 100% full
+    fill.style.strokeDasharray = `${drawPercent}, 100`;
+
+    // Animate the text number
+    animateValue('donut-text', 0, Math.floor(roiPercent), 1500);
+}
+
+// --- COMPS ENGINE ---
+async function runComps(player, year, brand, grade, site, event) {
+    if (event) event.stopPropagation();
+    if (!player) return alert("Please enter at least a player name first!");
+    const qParts = [year, brand, player, (grade === 'raw' || grade === 'RAW' ? '' : grade)];
+    const query = qParts.filter(Boolean).join(' ').trim();
+    if (site === 'ebay') { window.open(`https://www.ebay.com/sch/i.html?_nkw=${encodeURIComponent(query)}&LH_Sold=1&LH_Complete=1`, '_blank'); } 
+    else if (site === '130') { try { await navigator.clipboard.writeText(query); alert(`Copied: "${query}" to your clipboard!\n\nJust hit Paste in the 130Point search bar.`); } catch(e) {} window.open('https://130point.com/sales/', '_blank'); }
+}
 function launchFormComps(site) {
-    const p = document.getElementById('f-player').value.trim();
-    const y = document.getElementById('f-year').value.trim();
-    const b = document.getElementById('f-brand').value.trim();
-    const gc = document.getElementById('f-grade-comp').value;
-    const gn = document.getElementById('f-grade-num').value.trim();
-    const g = gc === 'raw' ? 'raw' : `${gc} ${gn}`;
-    runComps(p, y, b, g, site, null);
+    const p = document.getElementById('f-player').value.trim(), y = document.getElementById('f-year').value.trim(), b = document.getElementById('f-brand').value.trim(), gc = document.getElementById('f-grade-comp').value, gn = document.getElementById('f-grade-num').value.trim();
+    runComps(p, y, b, gc === 'raw' ? 'raw' : `${gc} ${gn}`, site, null);
 }
 
 // --- UTILS ---
 function formatMoney(el) { if (el.value) el.value = parseFloat(el.value).toFixed(2); }
-function checkGrade() {
-    const comp = document.getElementById('f-grade-comp').value;
-    const numEl = document.getElementById('f-grade-num');
-    if (comp === 'raw') { numEl.value = ''; numEl.disabled = true; } 
-    else { numEl.disabled = false; }
-}
+function checkGrade() { const c = document.getElementById('f-grade-comp').value, n = document.getElementById('f-grade-num'); if (c === 'raw') { n.value = ''; n.disabled = true; } else { n.disabled = false; } }
 function cleanNum(val) { return parseFloat(String(val || '').replace(/[^0-9.]/g, '')) || 0; }
 function fmt(n) { return '$' + Math.abs(n).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
 function el(tag, attrs = {}, children = []) {
   const elem = document.createElement(tag);
-  for (const [k, v] of Object.entries(attrs)) {
-    if (k === 'className') elem.className = v; else if (k === 'style') Object.assign(elem.style, v); else if (k.startsWith('on')) elem.addEventListener(k.slice(2).toLowerCase(), v); else elem.setAttribute(k, v);
-  }
-  for (const child of children) { if (child != null) elem.appendChild(typeof child === 'string' ? document.createTextNode(child) : child); }
-  return elem;
+  for (const [k, v] of Object.entries(attrs)) { if (k === 'className') elem.className = v; else if (k === 'style') Object.assign(elem.style, v); else if (k.startsWith('on')) elem.addEventListener(k.slice(2).toLowerCase(), v); else elem.setAttribute(k, v); }
+  for (const child of children) { if (child != null) elem.appendChild(typeof child === 'string' ? document.createTextNode(child) : child); } return elem;
 }
 
 // --- CORE ---
@@ -341,11 +397,21 @@ function updateStats() {
     if (c.status === 'own') { totalPaid += paid; vaultWorth += worth; assetCount++; } 
     else if (c.status === 'sold') { totalPaid += paid; cashIn += soldAmt; paidForSold += paid; assetCount++; }
   });
-  const realizedProfit = cashIn - paidForSold; const net = (vaultWorth + cashIn) - totalPaid;
+  
+  const realizedProfit = cashIn - paidForSold; 
+  const net = (vaultWorth + cashIn) - totalPaid;
+  
+  // Update Top Stats
   document.getElementById('s-total').textContent = assetCount;
   document.getElementById('s-worth').textContent = fmt(vaultWorth);
   const r = document.getElementById('s-realized'); r.textContent = (realizedProfit >= 0 ? '+' : '') + fmt(realizedProfit); r.style.color = realizedProfit >= 0 ? 'var(--green)' : 'var(--danger)';
   const g = document.getElementById('s-gain'); g.textContent = (net >= 0 ? '+' : '') + fmt(net); g.style.color = net >= 0 ? 'var(--green)' : 'var(--danger)';
+
+  // Calculate & Animate Sold ROI Graph
+  let roiPercent = 0;
+  if (paidForSold > 0) { roiPercent = (realizedProfit / paidForSold) * 100; } 
+  else if (realizedProfit > 0) { roiPercent = 100; } // Pure profit fallback
+  updateDonut(roiPercent, realizedProfit);
 }
 
 function clearImage() { pendingImg = null; document.getElementById('imgPrev').src = ''; document.getElementById('imgPrev').style.display = 'none'; document.getElementById('imgCamera').value = ''; document.getElementById('imgFile').value = ''; }
@@ -373,21 +439,29 @@ function renderGrid(wrap, list) {
   const grid = el('div', { className: 'card-grid' });
   for (const c of list) {
     const paid = cleanNum(c.paid), worth = cleanNum(c.worth), sold = cleanNum(c.sold);
-    let gain = 0, gainLabel = '--', gainClass = 'flat';
-    if (c.status === 'own') { gain = worth - paid; gainLabel = (gain >= 0 ? '+' : '-') + fmt(gain); gainClass = gain > 0 ? 'up' : gain < 0 ? 'down' : 'flat'; } 
-    else if (c.status === 'sold') { gain = sold - paid; gainLabel = (gain >= 0 ? '+' : '-') + fmt(gain); gainClass = gain > 0 ? 'up' : gain < 0 ? 'down' : 'flat'; } 
-    else if (c.status === 'wanted') { gainLabel = 'WISHLIST'; gainClass = 'blue'; }
+    let gain = 0, gainLabel = '--', gainClass = 'flat', roi = 0, roiLabel = '';
+    
+    // Glass Pill Math
+    if (c.status === 'own' || c.status === 'sold') {
+        const val = c.status === 'sold' ? sold : worth;
+        gain = val - paid;
+        gainLabel = (gain >= 0 ? '+' : '-') + fmt(gain);
+        gainClass = gain > 0 ? 'up' : gain < 0 ? 'down' : 'flat';
+        if (paid > 0) { roi = (gain / paid) * 100; roiLabel = (roi >= 0 ? '+' : '') + Math.floor(roi) + '%'; } 
+        else if (gain > 0) { roiLabel = 'MAX'; }
+    } else if (c.status === 'wanted') { gainLabel = 'WISHLIST'; gainClass = 'blue'; }
 
     const displayGrade = c.grade === 'raw' ? 'RAW' : c.grade;
     const imgWrap = el('div', { className: 'card-img-wrap' }, [ c.status === 'sold' ? el('div', { className: 'banner-sold' }, ['SOLD']) : null, c.img ? el('img', { src: c.img, loading: 'lazy' }) : el('div', { style: { paddingTop: '60px', textAlign: 'center', fontSize: '30px', opacity: '0.2' } }, [SI[c.sport] || '🎴']), el('div', { className: 'note-indicator', style: {background: displayGrade === 'RAW' ? 'var(--surface3)' : 'var(--blue)', color: 'white'} }, [displayGrade]) ]);
+    const compActions = el('div', { className: 'comp-row' }, [ el('button', { className: 'comp-btn ebay', onclick: (e) => runComps(c.player, c.year, c.brand, c.grade, 'ebay', e) }, ['🔍 eBay']), el('button', { className: 'comp-btn pt130', onclick: (e) => runComps(c.player, c.year, c.brand, c.grade, '130', e) }, ['🔍 130Pt']) ]);
     
-    // THE NEW DASHBOARD COMPS BUTTONS
-    const compActions = el('div', { className: 'comp-row' }, [
-        el('button', { className: 'comp-btn ebay', onclick: (e) => runComps(c.player, c.year, c.brand, c.grade, 'ebay', e) }, ['🔍 eBay']),
-        el('button', { className: 'comp-btn pt130', onclick: (e) => runComps(c.player, c.year, c.brand, c.grade, '130', e) }, ['🔍 130Pt'])
+    // THE NEW GLASS PILL WRAPPER
+    const pillWrap = el('div', { className: 'pill-wrap' }, [
+        el('div', { className: `gain-badge ${gainClass}` }, [gainLabel]),
+        el('div', { className: `glass-pill ${gainClass}` }, [roiLabel])
     ]);
 
-    const body = el('div', { className: 'card-body' }, [ el('div', {}, [ el('div', { className: 'card-player' }, [c.player || '']), el('div', { className: 'card-meta' }, [`${c.year || ''} ${c.brand || ''}`.trim()]), el('div', { className: 'card-prices' }, [ el('div', { className: 'price-pip' }, [ el('div', { className: 'pl' }, ['PAID']), el('div', { className: 'pv' }, [fmt(paid)]) ]), el('div', { className: 'price-pip' }, [ el('div', { className: 'pl' }, [c.status === 'sold' ? 'SOLD' : 'WORTH']), el('div', { className: 'pv' }, [c.status === 'sold' ? fmt(sold) : fmt(worth)]) ]) ]), el('div', { className: `gain-badge ${gainClass}` }, [gainLabel]) ]), compActions ]);
+    const body = el('div', { className: 'card-body' }, [ el('div', {}, [ el('div', { className: 'card-player' }, [c.player || '']), el('div', { className: 'card-meta' }, [`${c.year || ''} ${c.brand || ''}`.trim()]), el('div', { className: 'card-prices' }, [ el('div', { className: 'price-pip' }, [ el('div', { className: 'pl' }, ['PAID']), el('div', { className: 'pv' }, [fmt(paid)]) ]), el('div', { className: 'price-pip' }, [ el('div', { className: 'pl' }, [c.status === 'sold' ? 'SOLD' : 'WORTH']), el('div', { className: 'pv' }, [c.status === 'sold' ? fmt(sold) : fmt(worth)]) ]) ]), pillWrap ]), compActions ]);
     grid.appendChild(el('div', { className: `card-item ${c.status === 'sold' ? 'is-sold' : (c.status === 'wanted' ? 'is-wanted' : '')}`, onclick: () => openAdd(c.id) }, [imgWrap, body]));
   } wrap.appendChild(grid);
 }
@@ -396,11 +470,14 @@ function renderTable(wrap, list) {
     wrap.innerHTML = `<table class="card-table"><thead><tr><th>Player / Info</th><th>Grade</th><th>Paid</th><th>Worth</th><th>Sold</th><th>Gain/Loss</th></tr></thead><tbody>
         ${list.map(c => {
             const p = cleanNum(c.paid), w = cleanNum(c.worth), s = cleanNum(c.sold);
-            const g = c.status === 'sold' ? s - p : w - p; const gs = c.status === 'wanted' ? '--' : (g>=0?'+':'-')+fmt(g);
+            const val = c.status === 'sold' ? s : w;
+            const g = val - p; 
+            const gs = c.status === 'wanted' ? '--' : (g>=0?'+':'-')+fmt(g);
+            let roi = ''; if (c.status !== 'wanted' && p > 0) roi = ` <span style="font-size:10px; opacity:0.7;">(${(g/p*100).toFixed(0)}%)</span>`;
             return `<tr style="opacity:${c.status==='sold'?'0.6':'1'};cursor:pointer" onclick="openAdd('${c.id}')">
                 <td><b>${c.player||''}</b><br><small>${c.year||''} ${c.brand||''}</small></td><td><b>${c.grade === 'raw' ? 'RAW' : c.grade}</b></td>
                 <td>${fmt(p)}</td><td style="color:var(--green)">${c.status==='wanted'?fmt(w):(c.status==='sold'?'--':fmt(w))}</td>
-                <td><b>${c.status==='sold'?fmt(s):'--'}</b></td><td style="color:${g>=0?'var(--green)':'var(--danger)'};font-weight:700">${gs}</td></tr>`;
+                <td><b>${c.status==='sold'?fmt(s):'--'}</b></td><td style="color:${g>=0?'var(--green)':'var(--danger)'};font-weight:700">${gs}${roi}</td></tr>`;
         }).join('')}</tbody></table>`;
 }
 
