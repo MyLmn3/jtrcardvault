@@ -46,7 +46,7 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
 .vbtn:hover { background: rgba(255,255,255,0.05); color: var(--text); }
 .vbtn.active { background: var(--green); color: var(--navy3); border-color: var(--green); }
 
-/* --- PERFORMANCE WIDGET (DONUT & GLASS BUBBLE) --- */
+/* --- PERFORMANCE WIDGET --- */
 .perf-widget { margin-top: 25px; padding: 20px 15px; background: rgba(255,255,255,0.02); border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); text-align: center; box-shadow: inset 0 0 20px rgba(0,0,0,0.2); }
 .perf-widget h3 { font-family: 'Oswald'; font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; }
 .donut-wrap { position: relative; width: 120px; height: 120px; margin: 0 auto; }
@@ -78,7 +78,6 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
 .price-pip .pl { font-size: 8px; text-transform: uppercase; color: var(--text3); margin-bottom: 2px; font-weight: 700; }
 .price-pip .pv { font-family: 'Oswald'; font-size: 11px; color: var(--green); }
 
-/* --- GLASS PILLS (CARD LEVEL) --- */
 .pill-wrap { display: flex; gap: 6px; margin-bottom: 10px; align-items: stretch; }
 .gain-badge { flex: 1; padding: 5px 8px; border-radius: 6px; font-family: 'Oswald'; font-size: 12px; font-weight: 700; text-align: center; }
 .gain-badge.up { background: rgba(105,190,40,0.15); color: var(--green); }
@@ -88,9 +87,8 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
 .glass-pill { padding: 5px 8px; border-radius: 6px; font-family: 'Oswald'; font-size: 12px; font-weight: 700; text-align: center; background: rgba(255,255,255,0.05); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; min-width: 45px; }
 .glass-pill.up { color: var(--green); border-color: rgba(105,190,40,0.3); }
 .glass-pill.down { color: var(--danger); border-color: rgba(239,68,68,0.3); }
-.glass-pill.flat { color: var(--text3); display: none; } /* Hide 0% pill to keep clean */
+.glass-pill.flat { color: var(--text3); display: none; }
 
-/* --- COMPS BUTTONS --- */
 .comp-row { display: flex; gap: 6px; align-items: center; justify-content: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 10px; }
 .comp-btn { background: rgba(255,255,255,0.03); border: 1px solid var(--surface3); color: var(--text2); font-size: 10px; font-weight: 700; font-family: 'Oswald'; text-transform: uppercase; padding: 4px 10px; border-radius: 6px; cursor: pointer; transition: 0.2s; flex: 1; letter-spacing: 0.5px; }
 .comp-btn:hover { background: var(--surface3); color: white; }
@@ -121,7 +119,7 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
 .m-up-label { font-size: 10px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; }
 .upload-preview { width: 100%; height: 260px; object-fit: cover; border-radius: 10px; display: none; cursor: pointer; border: 1px solid var(--border2); }
 
-/* --- INPUTS & TOGGLES --- */
+/* --- INPUTS & SPLITTER --- */
 .fi { width: 100%; background: rgba(255,255,255,0.03); border: 1px solid transparent; border-bottom: 2px solid var(--surface3); padding: 12px 14px; color: white; border-radius: 8px 8px 0 0; font-size: 14px; outline: none; font-family: 'Inter', sans-serif; transition: 0.2s; }
 .fi:focus { background: rgba(255,255,255,0.06); border-bottom-color: var(--green); }
 .fi:disabled { opacity: 0.4; cursor: not-allowed; }
@@ -130,6 +128,14 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
 .money-wrap { position: relative; width: 100%; }
 .money-wrap::before { content: '$'; position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text3); font-weight: 600; font-size: 14px; pointer-events: none; }
 .money-wrap .fi { padding-left: 28px; }
+
+/* THE SPLITTER UI */
+.btn-split-toggle { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.1); border: none; color: var(--text2); font-family: 'Oswald'; font-size: 10px; text-transform: uppercase; padding: 4px 8px; border-radius: 6px; cursor: pointer; transition: 0.2s; letter-spacing: 0.5px; }
+.btn-split-toggle:hover { background: rgba(105,190,40,0.2); color: var(--green); }
+.split-panel { display: none; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 12px; border-radius: 8px; margin-top: 8px; gap: 10px; box-shadow: inset 0 0 10px rgba(0,0,0,0.2); }
+.split-panel.open { display: grid; grid-template-columns: 1fr 1fr; }
+.split-panel .fi { font-size: 12px; padding: 8px 10px; }
+
 .status-row { display: flex; gap: 12px; margin-top: 4px; }
 .pill-toggle { flex: 1; background: rgba(255,255,255,0.03); border: 1px solid var(--surface3); padding: 10px; border-radius: 8px; text-align: center; font-size: 12px; font-weight: 600; cursor: pointer; color: var(--text2); transition: 0.2s; }
 .pill-toggle.sold-on { background: rgba(239,68,68,0.1); border-color: var(--danger); color: var(--danger); }
@@ -147,19 +153,14 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
 @media (max-width: 768px) {
   .stats-bar { grid-template-columns: 1fr 1fr; }
   .main { flex-direction: column; }
-  
-  /* Mobile Sidebar & Widget Reshape */
   .sidebar { width: 100%; padding: 15px; border-right: none; border-bottom: 1px solid var(--border); display: block; }
   .sidebar-buttons { display: flex; overflow-x: auto; gap: 8px; padding-bottom: 5px; }
   .sdbtn { white-space: nowrap; width: auto; margin: 0; border-radius: 20px; flex-shrink: 0; }
-  
-  /* Transforms the Donut into a horizontal banner on phones */
   .perf-widget { display: flex; flex-direction: row; align-items: center; justify-content: space-between; padding: 12px 15px; margin-top: 15px; }
   .perf-widget h3 { display: none; }
   .donut-wrap { width: 60px; height: 60px; margin: 0; }
   .donut-text { font-size: 14px; }
   .glass-bubble { margin-top: 0; padding: 8px 12px; box-shadow: none; text-align: right; border: none; background: transparent; }
-  
   .content { padding: 15px; }
   .card-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
   .modal { border-radius: 12px 12px 0 0; max-height: 95dvh; margin-top: auto; }
@@ -282,7 +283,16 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
             </div>
 
             <div class="grid-2">
-                <div class="money-wrap"><input type="number" id="f-paid" class="fi" placeholder="Paid" min="0" step="0.01" onblur="formatMoney(this)"></div>
+                <div>
+                    <div class="money-wrap">
+                        <input type="number" id="f-paid" class="fi" placeholder="Paid" min="0" step="0.01" onblur="formatMoney(this)">
+                        <button type="button" class="btn-split-toggle" onclick="toggleSplit()">📦 Split</button>
+                    </div>
+                    <div id="split-panel" class="split-panel">
+                        <div class="money-wrap"><input type="number" id="s-box-cost" class="fi" placeholder="Box Cost" min="0" oninput="calcSplit()"></div>
+                        <input type="number" id="s-box-hits" class="fi" placeholder="# of Hits" min="1" oninput="calcSplit()">
+                    </div>
+                </div>
                 <div>
                     <div class="money-wrap"><input type="number" id="f-worth" class="fi" placeholder="Worth" min="0" step="0.01" onblur="formatMoney(this)"></div>
                     <div class="modal-comp-row">
@@ -322,37 +332,38 @@ const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 let cards = [], view = 'grid', editId = null, pendingImg = null, fStatus = 'all', isLoading = false, isSaving = false;
 const SI = { baseball:'⚾', basketball:'🏀', football:'🏈', hockey:'🏒', soccer:'⚽', other:'🎴' };
 
+// --- BOX SPLITTER ENGINE ---
+function toggleSplit() {
+    const p = document.getElementById('split-panel');
+    p.classList.toggle('open');
+}
+function calcSplit() {
+    const cost = parseFloat(document.getElementById('s-box-cost').value) || 0;
+    const hits = parseInt(document.getElementById('s-box-hits').value) || 1;
+    if (hits > 0 && cost > 0) {
+        document.getElementById('f-paid').value = (cost / hits).toFixed(2);
+    }
+}
+
 // --- ANIMATION ENGINE ---
 function animateValue(id, start, end, duration) {
     if (start === end) return;
-    let obj = document.getElementById(id);
-    let startTimestamp = null;
+    let obj = document.getElementById(id); let startTimestamp = null;
     const step = (timestamp) => {
         if (!startTimestamp) startTimestamp = timestamp;
         const progress = Math.min((timestamp - startTimestamp) / duration, 1);
         const currentVal = Math.floor(progress * (end - start) + start);
         obj.innerHTML = currentVal + '%';
-        if (progress < 1) { window.requestAnimationFrame(step); } 
-        else { obj.innerHTML = end + '%'; }
-    };
-    window.requestAnimationFrame(step);
+        if (progress < 1) { window.requestAnimationFrame(step); } else { obj.innerHTML = end + '%'; }
+    }; window.requestAnimationFrame(step);
 }
-
 function updateDonut(roiPercent, profitAmount) {
-    const fill = document.getElementById('donut-fill');
-    const text = document.getElementById('donut-text');
-    const bubble = document.getElementById('gb-profit');
-    
-    // Update Bubble Text
+    const fill = document.getElementById('donut-fill'), text = document.getElementById('donut-text'), bubble = document.getElementById('gb-profit');
     bubble.textContent = (profitAmount >= 0 ? '+' : '') + fmt(profitAmount);
     bubble.className = profitAmount >= 0 ? 'gb-val' : 'gb-val loss';
     fill.className.baseVal = profitAmount >= 0 ? 'donut-fill' : 'donut-fill loss';
-
-    // Math for drawing the SVG circle
-    let drawPercent = Math.min(Math.abs(roiPercent), 100); // Caps the circle at 100% full
+    let drawPercent = Math.min(Math.abs(roiPercent), 100); 
     fill.style.strokeDasharray = `${drawPercent}, 100`;
-
-    // Animate the text number
     animateValue('donut-text', 0, Math.floor(roiPercent), 1500);
 }
 
@@ -401,16 +412,14 @@ function updateStats() {
   const realizedProfit = cashIn - paidForSold; 
   const net = (vaultWorth + cashIn) - totalPaid;
   
-  // Update Top Stats
   document.getElementById('s-total').textContent = assetCount;
   document.getElementById('s-worth').textContent = fmt(vaultWorth);
   const r = document.getElementById('s-realized'); r.textContent = (realizedProfit >= 0 ? '+' : '') + fmt(realizedProfit); r.style.color = realizedProfit >= 0 ? 'var(--green)' : 'var(--danger)';
   const g = document.getElementById('s-gain'); g.textContent = (net >= 0 ? '+' : '') + fmt(net); g.style.color = net >= 0 ? 'var(--green)' : 'var(--danger)';
 
-  // Calculate & Animate Sold ROI Graph
   let roiPercent = 0;
   if (paidForSold > 0) { roiPercent = (realizedProfit / paidForSold) * 100; } 
-  else if (realizedProfit > 0) { roiPercent = 100; } // Pure profit fallback
+  else if (realizedProfit > 0) { roiPercent = 100; }
   updateDonut(roiPercent, realizedProfit);
 }
 
@@ -440,13 +449,9 @@ function renderGrid(wrap, list) {
   for (const c of list) {
     const paid = cleanNum(c.paid), worth = cleanNum(c.worth), sold = cleanNum(c.sold);
     let gain = 0, gainLabel = '--', gainClass = 'flat', roi = 0, roiLabel = '';
-    
-    // Glass Pill Math
     if (c.status === 'own' || c.status === 'sold') {
         const val = c.status === 'sold' ? sold : worth;
-        gain = val - paid;
-        gainLabel = (gain >= 0 ? '+' : '-') + fmt(gain);
-        gainClass = gain > 0 ? 'up' : gain < 0 ? 'down' : 'flat';
+        gain = val - paid; gainLabel = (gain >= 0 ? '+' : '-') + fmt(gain); gainClass = gain > 0 ? 'up' : gain < 0 ? 'down' : 'flat';
         if (paid > 0) { roi = (gain / paid) * 100; roiLabel = (roi >= 0 ? '+' : '') + Math.floor(roi) + '%'; } 
         else if (gain > 0) { roiLabel = 'MAX'; }
     } else if (c.status === 'wanted') { gainLabel = 'WISHLIST'; gainClass = 'blue'; }
@@ -454,13 +459,7 @@ function renderGrid(wrap, list) {
     const displayGrade = c.grade === 'raw' ? 'RAW' : c.grade;
     const imgWrap = el('div', { className: 'card-img-wrap' }, [ c.status === 'sold' ? el('div', { className: 'banner-sold' }, ['SOLD']) : null, c.img ? el('img', { src: c.img, loading: 'lazy' }) : el('div', { style: { paddingTop: '60px', textAlign: 'center', fontSize: '30px', opacity: '0.2' } }, [SI[c.sport] || '🎴']), el('div', { className: 'note-indicator', style: {background: displayGrade === 'RAW' ? 'var(--surface3)' : 'var(--blue)', color: 'white'} }, [displayGrade]) ]);
     const compActions = el('div', { className: 'comp-row' }, [ el('button', { className: 'comp-btn ebay', onclick: (e) => runComps(c.player, c.year, c.brand, c.grade, 'ebay', e) }, ['🔍 eBay']), el('button', { className: 'comp-btn pt130', onclick: (e) => runComps(c.player, c.year, c.brand, c.grade, '130', e) }, ['🔍 130Pt']) ]);
-    
-    // THE NEW GLASS PILL WRAPPER
-    const pillWrap = el('div', { className: 'pill-wrap' }, [
-        el('div', { className: `gain-badge ${gainClass}` }, [gainLabel]),
-        el('div', { className: `glass-pill ${gainClass}` }, [roiLabel])
-    ]);
-
+    const pillWrap = el('div', { className: 'pill-wrap' }, [ el('div', { className: `gain-badge ${gainClass}` }, [gainLabel]), el('div', { className: `glass-pill ${gainClass}` }, [roiLabel]) ]);
     const body = el('div', { className: 'card-body' }, [ el('div', {}, [ el('div', { className: 'card-player' }, [c.player || '']), el('div', { className: 'card-meta' }, [`${c.year || ''} ${c.brand || ''}`.trim()]), el('div', { className: 'card-prices' }, [ el('div', { className: 'price-pip' }, [ el('div', { className: 'pl' }, ['PAID']), el('div', { className: 'pv' }, [fmt(paid)]) ]), el('div', { className: 'price-pip' }, [ el('div', { className: 'pl' }, [c.status === 'sold' ? 'SOLD' : 'WORTH']), el('div', { className: 'pv' }, [c.status === 'sold' ? fmt(sold) : fmt(worth)]) ]) ]), pillWrap ]), compActions ]);
     grid.appendChild(el('div', { className: `card-item ${c.status === 'sold' ? 'is-sold' : (c.status === 'wanted' ? 'is-wanted' : '')}`, onclick: () => openAdd(c.id) }, [imgWrap, body]));
   } wrap.appendChild(grid);
@@ -470,8 +469,7 @@ function renderTable(wrap, list) {
     wrap.innerHTML = `<table class="card-table"><thead><tr><th>Player / Info</th><th>Grade</th><th>Paid</th><th>Worth</th><th>Sold</th><th>Gain/Loss</th></tr></thead><tbody>
         ${list.map(c => {
             const p = cleanNum(c.paid), w = cleanNum(c.worth), s = cleanNum(c.sold);
-            const val = c.status === 'sold' ? s : w;
-            const g = val - p; 
+            const val = c.status === 'sold' ? s : w; const g = val - p; 
             const gs = c.status === 'wanted' ? '--' : (g>=0?'+':'-')+fmt(g);
             let roi = ''; if (c.status !== 'wanted' && p > 0) roi = ` <span style="font-size:10px; opacity:0.7;">(${(g/p*100).toFixed(0)}%)</span>`;
             return `<tr style="opacity:${c.status==='sold'?'0.6':'1'};cursor:pointer" onclick="openAdd('${c.id}')">
@@ -492,7 +490,7 @@ async function saveCard(isBatch = false) {
   try {
     const card = { id: editId || Math.random().toString(36).substring(2, 11), player: name, year: document.getElementById('f-year').value.trim(), brand: document.getElementById('f-brand').value.trim(), num: document.getElementById('f-num').value.trim(), sport: document.getElementById('f-sport').value, grade: finalGrade, paid: cleanNum(document.getElementById('f-paid').value), worth: cleanNum(document.getElementById('f-worth').value), sold: cleanNum(document.getElementById('f-sold').value), status: document.getElementById('f-status').value, notes: document.getElementById('f-notes').value.trim(), img: pendingImg || (editId ? cards.find(c => c.id === editId)?.img || null : null), ts: Date.now() };
     await db.from('cards').upsert([card]); const idx = cards.findIndex(c => c.id === card.id); if (idx >= 0) cards[idx] = card; else cards.unshift(card);
-    updateStats(); if (isBatch) { editId = null; pendingImg = null; ['f-player','f-year','f-brand','f-num','f-paid','f-worth','f-sold','f-notes','f-grade-num'].forEach(id => document.getElementById(id).value = ''); setStatusUI('own'); document.getElementById('f-grade-comp').value = 'raw'; checkGrade(); clearImage(); render(); } else { closeAdd(); render(); }
+    updateStats(); if (isBatch) { editId = null; pendingImg = null; ['f-player','f-year','f-brand','f-num','f-paid','f-worth','f-sold','f-notes','f-grade-num','s-box-cost','s-box-hits'].forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; }); document.getElementById('split-panel').classList.remove('open'); setStatusUI('own'); document.getElementById('f-grade-comp').value = 'raw'; checkGrade(); clearImage(); render(); } else { closeAdd(); render(); }
   } catch (e) { alert('Save failed'); } finally { isSaving = false; document.getElementById('saveBtn').textContent = 'Save Entry'; }
 }
 
@@ -511,6 +509,12 @@ function setStatusUI(status) {
 function openAdd(id = null) {
   editId = id; pendingImg = null; const c = id ? cards.find(x => x.id === id) : null;
   document.getElementById('addOverlay').classList.add('open'); document.getElementById('addTitle').textContent = id ? 'EDIT ENTRY' : 'NEW ENTRY';
+  
+  // Close the splitter panel on open
+  document.getElementById('split-panel').classList.remove('open');
+  document.getElementById('s-box-cost').value = '';
+  document.getElementById('s-box-hits').value = '';
+
   ['player','year','brand','num','paid','worth','sold','notes'].forEach(k => document.getElementById('f-'+k).value = c?.[k] || '');
   
   let gComp = 'raw', gNum = '';
