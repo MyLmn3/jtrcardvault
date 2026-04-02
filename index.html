@@ -73,14 +73,25 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
 
 /* --- GRID & CARDS --- */
 .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px,1fr)); gap: 20px; }
-.card-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; }
+.card-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; position: relative; }
 .card-item:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.4); border-color: var(--green); }
 .is-sold { opacity: 0.7 !important; filter: grayscale(0.4); }
 .is-wanted { opacity: 0.9; border-color: var(--blue); }
 .banner-sold { position: absolute; top: 12px; left: -28px; background: var(--danger); color: white; transform: rotate(-45deg); width: 100px; text-align: center; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; z-index: 10; }
 .card-img-wrap { height: 160px; background: #000; overflow: hidden; position: relative; flex-shrink: 0; }
 .card-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
-.note-indicator { position: absolute; bottom: 8px; right: 8px; background: var(--green); color: var(--navy); font-size: 10px; padding: 3px 6px; border-radius: 4px; font-weight: 700; }
+
+/* --- LIGHTBOX & ZOOM --- */
+.zoom-btn { position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: 14px; cursor: pointer; transition: 0.2s; z-index: 20; color: white; }
+.zoom-btn:hover { background: var(--green); color: var(--navy3); border-color: var(--green); transform: scale(1.1); }
+.lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 9999; align-items: center; justify-content: center; backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); cursor: zoom-out; }
+.lightbox.open { display: flex; animation: lbFade 0.2s ease-out; }
+@keyframes lbFade { from { opacity: 0; } to { opacity: 1; } }
+.lightbox img { max-width: 95vw; max-height: 95vh; object-fit: contain; border-radius: 8px; box-shadow: 0 10px 40px rgba(0,0,0,0.6); }
+.btn-remove-img { background: transparent; border: 1px solid var(--danger); color: var(--danger); font-size: 10px; text-transform: uppercase; font-weight: 700; padding: 8px; border-radius: 6px; cursor: pointer; margin-top: 8px; width: 100%; display: none; text-align: center; transition: 0.2s; }
+.btn-remove-img:hover { background: rgba(239,68,68,0.1); }
+
+.note-indicator { position: absolute; bottom: 8px; right: 8px; background: var(--green); color: var(--navy); font-size: 10px; padding: 3px 6px; border-radius: 4px; font-weight: 700; z-index: 10; }
 .card-body { padding: 14px; display: flex; flex-direction: column; flex: 1; justify-content: space-between; }
 .card-player { font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 2px; }
 .card-meta { font-size: 11px; color: var(--text3); margin-bottom: 10px; font-weight: 500; }
@@ -128,7 +139,7 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
 .m-up-btn svg { width: 22px; height: 22px; stroke: currentColor; stroke-width: 1.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 .m-up-divider { width: 1px; background: var(--surface3); }
 .m-up-label { font-size: 10px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; }
-.upload-preview { width: 100%; height: 260px; object-fit: cover; border-radius: 10px; display: none; cursor: pointer; border: 1px solid var(--border2); }
+.upload-preview { width: 100%; height: 260px; object-fit: cover; border-radius: 10px; display: none; cursor: zoom-in; border: 1px solid var(--border2); }
 
 /* --- INPUTS & SPLITTER --- */
 .fi { width: 100%; background: rgba(255,255,255,0.03); border: 1px solid transparent; border-bottom: 2px solid var(--surface3); padding: 12px 14px; color: white; border-radius: 8px 8px 0 0; font-size: 14px; outline: none; font-family: 'Inter', sans-serif; transition: 0.2s; }
@@ -277,7 +288,9 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
             </div>
             <input type="file" id="imgCamera" hidden accept="image/*" capture="environment" onchange="handleImage(event)">
             <input type="file" id="imgFile" hidden accept="image/*" onchange="handleImage(event)">
-            <img id="imgPrev" class="upload-preview" title="Tap to remove image" onclick="clearImage()">
+            
+            <img id="imgPrev" class="upload-preview" title="Tap to expand" onclick="openLightbox(this.src)">
+            <button type="button" id="btnRemoveImg" class="btn-remove-img" onclick="clearImage()">🗑️ Remove Image</button>
         </div>
 
         <div class="modal-col-right">
@@ -350,6 +363,10 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
   </div>
 </div>
 
+<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+    <img id="lb-img" src="">
+</div>
+
 <script>
 // ─── CONFIG ───────────────────────────────────────────────────────────────────
 const SUPABASE_URL = 'https://njzuucmdeonrsrxgxdka.supabase.co';
@@ -358,6 +375,18 @@ const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 let cards = [], view = 'grid', editId = null, pendingImg = null, fStatus = 'all', isLoading = false, isSaving = false;
 const SI = { baseball:'⚾', basketball:'🏀', football:'🏈', hockey:'🏒', soccer:'⚽', other:'🎴' };
+
+// --- LIGHTBOX ENGINE ---
+function openLightbox(src, e) {
+    if (e) e.stopPropagation();
+    if (!src) return;
+    document.getElementById('lb-img').src = src;
+    document.getElementById('lightbox').classList.add('open');
+}
+function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    setTimeout(() => document.getElementById('lb-img').src = '', 200);
+}
 
 // --- BOX SPLITTER ENGINE ---
 function toggleSplit() {
@@ -450,7 +479,15 @@ function updateStats() {
   updateDonut(roiPercent, realizedProfit);
 }
 
-function clearImage() { pendingImg = null; document.getElementById('imgPrev').src = ''; document.getElementById('imgPrev').style.display = 'none'; document.getElementById('imgCamera').value = ''; document.getElementById('imgFile').value = ''; }
+function clearImage() { 
+    pendingImg = null; 
+    document.getElementById('imgPrev').src = ''; 
+    document.getElementById('imgPrev').style.display = 'none'; 
+    document.getElementById('imgCamera').value = ''; 
+    document.getElementById('imgFile').value = ''; 
+    document.getElementById('btnRemoveImg').style.display = 'none';
+}
+
 async function handleImage(e) {
   const file = e.target.files[0]; if (!file) return; const reader = new FileReader();
   reader.onload = (ev) => {
@@ -459,6 +496,7 @@ async function handleImage(e) {
       const canvas = document.createElement('canvas'); const scale = 800 / img.width; canvas.width = 800; canvas.height = img.height * scale;
       canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height); pendingImg = canvas.toDataURL('image/jpeg', 0.8);
       document.getElementById('imgPrev').src = pendingImg; document.getElementById('imgPrev').style.display = 'block';
+      document.getElementById('btnRemoveImg').style.display = 'block';
     };
   }; reader.readAsDataURL(file);
 }
@@ -484,7 +522,15 @@ function renderGrid(wrap, list) {
     } else if (c.status === 'wanted') { gainLabel = 'WISHLIST'; gainClass = 'blue'; }
 
     const displayGrade = c.grade === 'raw' ? 'RAW' : c.grade;
-    const imgWrap = el('div', { className: 'card-img-wrap' }, [ c.status === 'sold' ? el('div', { className: 'banner-sold' }, ['SOLD']) : null, c.img ? el('img', { src: c.img, loading: 'lazy' }) : el('div', { style: { paddingTop: '60px', textAlign: 'center', fontSize: '30px', opacity: '0.2' } }, [SI[c.sport] || '🎴']), el('div', { className: 'note-indicator', style: {background: displayGrade === 'RAW' ? 'var(--surface3)' : 'var(--blue)', color: 'white'} }, [displayGrade]) ]);
+    
+    // ADDED GRID ZOOM BUTTON HERE
+    const imgWrap = el('div', { className: 'card-img-wrap' }, [ 
+        c.status === 'sold' ? el('div', { className: 'banner-sold' }, ['SOLD']) : null, 
+        c.img ? el('img', { src: c.img, loading: 'lazy' }) : el('div', { style: { paddingTop: '60px', textAlign: 'center', fontSize: '30px', opacity: '0.2' } }, [SI[c.sport] || '🎴']), 
+        c.img ? el('button', { className: 'zoom-btn', onclick: (e) => openLightbox(c.img, e), title: 'Zoom Image' }, ['🔍']) : null,
+        el('div', { className: 'note-indicator', style: {background: displayGrade === 'RAW' ? 'var(--surface3)' : 'var(--blue)', color: 'white'} }, [displayGrade]) 
+    ]);
+    
     const compActions = el('div', { className: 'comp-row' }, [ el('button', { className: 'comp-btn ebay', onclick: (e) => runComps(c.player, c.year, c.brand, c.grade, 'ebay', e) }, ['🔍 eBay']), el('button', { className: 'comp-btn pt130', onclick: (e) => runComps(c.player, c.year, c.brand, c.grade, '130', e) }, ['🔍 130Pt']) ]);
     const pillWrap = el('div', { className: 'pill-wrap' }, [ el('div', { className: `gain-badge ${gainClass}` }, [gainLabel]), el('div', { className: `glass-pill ${gainClass}` }, [roiLabel]) ]);
     const body = el('div', { className: 'card-body' }, [ el('div', {}, [ el('div', { className: 'card-player' }, [c.player || '']), el('div', { className: 'card-meta' }, [`${c.year || ''} ${c.brand || ''}`.trim()]), el('div', { className: 'card-prices' }, [ el('div', { className: 'price-pip' }, [ el('div', { className: 'pl' }, ['PAID']), el('div', { className: 'pv' }, [fmt(paid)]) ]), el('div', { className: 'price-pip' }, [ el('div', { className: 'pl' }, [c.status === 'sold' ? 'SOLD' : 'WORTH']), el('div', { className: 'pv' }, [c.status === 'sold' ? fmt(sold) : fmt(worth)]) ]) ]), pillWrap ]), compActions ]);
@@ -554,7 +600,16 @@ function openAdd(id = null) {
   checkGrade();
 
   document.getElementById('f-sport').value = c?.sport || 'baseball';
-  setStatusUI(c?.status || 'own'); const prev = document.getElementById('imgPrev'); if (c?.img) { prev.src = c.img; prev.style.display = 'block'; } else clearImage();
+  setStatusUI(c?.status || 'own'); 
+  
+  const prev = document.getElementById('imgPrev'); 
+  const rmBtn = document.getElementById('btnRemoveImg');
+  if (c?.img) { 
+      prev.src = c.img; prev.style.display = 'block'; rmBtn.style.display = 'block'; 
+  } else { 
+      clearImage(); 
+  }
+  
   const dbBtn = document.getElementById('delBtn'); if (id) dbBtn.classList.add('show'); else dbBtn.classList.remove('show');
   document.getElementById('batchBtn').style.display = id ? 'none' : 'block';
   
