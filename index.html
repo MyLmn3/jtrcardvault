@@ -88,8 +88,10 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
 .lightbox.open { display: flex; animation: lbFade 0.2s ease-out; }
 @keyframes lbFade { from { opacity: 0; } to { opacity: 1; } }
 .lightbox img { max-width: 95vw; max-height: 95vh; object-fit: contain; border-radius: 8px; box-shadow: 0 10px 40px rgba(0,0,0,0.6); }
-.btn-remove-img { background: transparent; border: 1px solid var(--danger); color: var(--danger); font-size: 10px; text-transform: uppercase; font-weight: 700; padding: 8px; border-radius: 6px; cursor: pointer; margin-top: 8px; width: 100%; display: none; text-align: center; transition: 0.2s; }
-.btn-remove-img:hover { background: rgba(239,68,68,0.1); }
+
+/* --- THE NEW PILL BUTTON FOR IMAGE REMOVAL --- */
+.btn-remove-img { align-self: center; background: rgba(239,68,68,0.05); border: 1px solid rgba(239,68,68,0.3); color: var(--danger); font-size: 9px; text-transform: uppercase; font-weight: 700; padding: 6px 14px; border-radius: 20px; cursor: pointer; margin-top: 12px; display: none; transition: 0.2s; letter-spacing: 0.5px; width: max-content; }
+.btn-remove-img:hover { background: rgba(239,68,68,0.15); border-color: var(--danger); }
 
 .note-indicator { position: absolute; bottom: 8px; right: 8px; background: var(--green); color: var(--navy); font-size: 10px; padding: 3px 6px; border-radius: 4px; font-weight: 700; z-index: 10; }
 .card-body { padding: 14px; display: flex; flex-direction: column; flex: 1; justify-content: space-between; }
@@ -203,9 +205,13 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
   .card-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
   .modal { border-radius: 12px 12px 0 0; max-height: 95dvh; margin-top: auto; }
   .modal-body { flex-direction: column; padding: 15px; gap: 15px; }
-  .modal-col-left { width: 100%; flex-direction: row; align-items: stretch; }
+  
+  /* Flex-wrap added here to gracefully handle the pill button side-by-side */
+  .modal-col-left { width: 100%; flex-direction: row; align-items: center; flex-wrap: wrap; gap: 12px; }
   .modern-upload { flex: 1; }
   .upload-preview { width: 100px; height: 100px; margin-bottom: 0; }
+  .btn-remove-img { margin-top: 0; }
+  
   .fi { font-size: 16px !important; padding: 14px 12px; }
   .money-wrap::before { font-size: 16px; }
   .modal-footer { padding: 12px 15px; padding-bottom: max(12px, env(safe-area-inset-bottom)); }
@@ -523,7 +529,7 @@ function renderGrid(wrap, list) {
 
     const displayGrade = c.grade === 'raw' ? 'RAW' : c.grade;
     
-    // ADDED GRID ZOOM BUTTON HERE
+    // GRID ZOOM BUTTON
     const imgWrap = el('div', { className: 'card-img-wrap' }, [ 
         c.status === 'sold' ? el('div', { className: 'banner-sold' }, ['SOLD']) : null, 
         c.img ? el('img', { src: c.img, loading: 'lazy' }) : el('div', { style: { paddingTop: '60px', textAlign: 'center', fontSize: '30px', opacity: '0.2' } }, [SI[c.sport] || '🎴']), 
