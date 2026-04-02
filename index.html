@@ -206,9 +206,9 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
   .modal { border-radius: 12px 12px 0 0; max-height: 95dvh; margin-top: auto; }
   .modal-body { flex-direction: column; padding: 15px; gap: 15px; }
   
-  /* Flex-wrap added here to gracefully handle the pill button side-by-side */
-  .modal-col-left { width: 100%; flex-direction: row; align-items: center; flex-wrap: wrap; gap: 12px; }
-  .modern-upload { flex: 1; }
+  /* --- THE FLEXBOX 100% FIX FOR OVERLAPPING BUTTONS --- */
+  .modal-col-left { width: 100%; flex-direction: row; align-items: center; flex-wrap: wrap; gap: 12px; justify-content: center; }
+  .modern-upload { flex: 0 0 100%; } /* Forces the box to have its own full row */
   .upload-preview { width: 100px; height: 100px; margin-bottom: 0; }
   .btn-remove-img { margin-top: 0; }
   
