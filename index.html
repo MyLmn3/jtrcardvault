@@ -89,7 +89,7 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
 @keyframes lbFade { from { opacity: 0; } to { opacity: 1; } }
 .lightbox img { max-width: 95vw; max-height: 95vh; object-fit: contain; border-radius: 8px; box-shadow: 0 10px 40px rgba(0,0,0,0.6); }
 
-/* --- THE NEW PILL BUTTON FOR IMAGE REMOVAL --- */
+/* --- THE PILL BUTTON FOR IMAGE REMOVAL --- */
 .btn-remove-img { align-self: center; background: rgba(239,68,68,0.05); border: 1px solid rgba(239,68,68,0.3); color: var(--danger); font-size: 9px; text-transform: uppercase; font-weight: 700; padding: 6px 14px; border-radius: 20px; cursor: pointer; margin-top: 12px; display: none; transition: 0.2s; letter-spacing: 0.5px; width: max-content; }
 .btn-remove-img:hover { background: rgba(239,68,68,0.15); border-color: var(--danger); }
 
@@ -206,9 +206,9 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
   .modal { border-radius: 12px 12px 0 0; max-height: 95dvh; margin-top: auto; }
   .modal-body { flex-direction: column; padding: 15px; gap: 15px; }
   
-  /* --- THE FLEXBOX 100% FIX FOR OVERLAPPING BUTTONS --- */
+  /* --- THE BULLETPROOF MOBILE LAYOUT FIX --- */
   .modal-col-left { width: 100%; flex-direction: row; align-items: center; flex-wrap: wrap; gap: 12px; justify-content: center; }
-  .modern-upload { flex: 0 0 100%; } /* Forces the box to have its own full row */
+  .modern-upload { width: 100% !important; flex: 0 0 100% !important; } 
   .upload-preview { width: 100px; height: 100px; margin-bottom: 0; }
   .btn-remove-img { margin-top: 0; }
   
@@ -551,8 +551,12 @@ function renderTable(wrap, list) {
             const val = c.status === 'sold' ? s : w; const g = val - p; 
             const gs = c.status === 'wanted' ? '--' : (g>=0?'+':'-')+fmt(g);
             let roi = ''; if (c.status !== 'wanted' && p > 0) roi = ` <span style="font-size:10px; opacity:0.7;">(${(g/p*100).toFixed(0)}%)</span>`;
+            
+            // THE NEW LIST VIEW IMAGE INDICATOR
+            const imgBadge = c.img ? `<button onclick="openLightbox('${c.img}', event)" class="comp-btn" style="padding: 2px 6px; margin-left: 8px; font-size: 10px; background: rgba(105,190,40,0.1); color: var(--green); border-color: var(--green);" title="View Image">🔍 Image</button>` : '';
+
             return `<tr style="opacity:${c.status==='sold'?'0.6':'1'};cursor:pointer" onclick="openAdd('${c.id}')">
-                <td><b>${c.player||''}</b><br><small>${c.year||''} ${c.brand||''}</small></td><td><b>${c.grade === 'raw' ? 'RAW' : c.grade}</b></td>
+                <td><div style="display:flex; align-items:center;"><b>${c.player||''}</b>${imgBadge}</div><small>${c.year||''} ${c.brand||''}</small></td><td><b>${c.grade === 'raw' ? 'RAW' : c.grade}</b></td>
                 <td>${fmt(p)}</td><td style="color:var(--green)">${c.status==='wanted'?fmt(w):(c.status==='sold'?'--':fmt(w))}</td>
                 <td><b>${c.status==='sold'?fmt(s):'--'}</b></td><td style="color:${g>=0?'var(--green)':'var(--danger)'};font-weight:700">${gs}${roi}</td></tr>`;
         }).join('')}</tbody></table>`;
