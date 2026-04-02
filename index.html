@@ -552,11 +552,12 @@ function renderTable(wrap, list) {
             const gs = c.status === 'wanted' ? '--' : (g>=0?'+':'-')+fmt(g);
             let roi = ''; if (c.status !== 'wanted' && p > 0) roi = ` <span style="font-size:10px; opacity:0.7;">(${(g/p*100).toFixed(0)}%)</span>`;
             
-            // THE NEW LIST VIEW IMAGE INDICATOR
-            const imgBadge = c.img ? `<button onclick="openLightbox('${c.img}', event)" class="comp-btn" style="padding: 2px 6px; margin-left: 8px; font-size: 10px; background: rgba(105,190,40,0.1); color: var(--green); border-color: var(--green);" title="View Image">🔍 Image</button>` : '';
+            // THE NEW LIST VIEW IMAGE INDICATOR (CLEAN AND TINY)
+            const imgBadge = c.img ? `<span onclick="openLightbox('${c.img}', event)" style="font-size:14px; margin-left:10px; opacity:0.6; transition:0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.6'" title="View Image">🔍</span>` : '';
 
             return `<tr style="opacity:${c.status==='sold'?'0.6':'1'};cursor:pointer" onclick="openAdd('${c.id}')">
-                <td><div style="display:flex; align-items:center;"><b>${c.player||''}</b>${imgBadge}</div><small>${c.year||''} ${c.brand||''}</small></td><td><b>${c.grade === 'raw' ? 'RAW' : c.grade}</b></td>
+                <td><div style="display:flex; justify-content:space-between; align-items:center;"><div><b>${c.player||''}</b><br><small>${c.year||''} ${c.brand||''}</small></div>${imgBadge}</div></td>
+                <td><b>${c.grade === 'raw' ? 'RAW' : c.grade}</b></td>
                 <td>${fmt(p)}</td><td style="color:var(--green)">${c.status==='wanted'?fmt(w):(c.status==='sold'?'--':fmt(w))}</td>
                 <td><b>${c.status==='sold'?fmt(s):'--'}</b></td><td style="color:${g>=0?'var(--green)':'var(--danger)'};font-weight:700">${gs}${roi}</td></tr>`;
         }).join('')}</tbody></table>`;
