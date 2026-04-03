@@ -31,7 +31,18 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
   50% { box-shadow: 0 0 25px rgba(105,190,40,0.7); transform: scale(1.02); }
   100% { box-shadow: 0 0 10px rgba(105,190,40,0.2); transform: scale(1); }
 }
-.jtr-icon { width: 34px; height: 34px; background: var(--green); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 800; color: var(--navy3); font-size: 18px; font-family: 'Oswald'; animation: pulse-glow 3s infinite ease-in-out; }
+
+/* --- THE GLASS LOGO --- */
+.jtr-icon { 
+  width: 34px; height: 34px; 
+  background: rgba(105,190,40,0.15); /* Frosted green base */
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); /* The glass effect */
+  border: 1px solid rgba(105,190,40,0.5); /* Crisp glass rim */
+  border-radius: 8px; display: flex; align-items: center; justify-content: center; 
+  font-weight: 800; color: var(--green); /* Glowing text */
+  font-size: 18px; font-family: 'Oswald'; 
+  animation: pulse-glow 3s infinite ease-in-out; 
+}
 
 .logo { font-family: 'Oswald', sans-serif; font-size: 22px; font-weight: 700; color: var(--white); text-transform: uppercase; letter-spacing: 1px; }
 .logo em { color: var(--green); font-style: normal; margin-left: 4px; }
@@ -166,17 +177,22 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
 .pill-toggle.want-on { background: rgba(59,130,246,0.1); border-color: var(--blue); color: var(--blue); }
 .modal-footer { position: sticky; bottom: 0; background: var(--surface); border-top: 1px solid var(--surface3); padding: 15px 24px; display: flex; justify-content: space-between; align-items: center; gap: 12px; z-index: 10; }
 
-/* --- REFRACTOR BUTTON ANIMATION --- */
+/* --- THE GLASS REFRACTOR BUTTON --- */
 @keyframes refractor-sweep {
   0% { left: -100%; }
   15% { left: 200%; }
   100% { left: 200%; }
 }
 .btn-primary { 
-  background: var(--green); color: var(--navy3); font-family: 'Oswald'; font-weight: 700; padding: 12px 20px; border: none; border-radius: 8px; cursor: pointer; text-transform: uppercase; font-size: 13px; transition: 0.2s; flex: 1;
+  background: linear-gradient(135deg, rgba(105,190,40,0.5) 0%, rgba(105,190,40,0.2) 100%);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); /* Glass blur */
+  border: 1px solid rgba(255,255,255,0.2); /* Thin glass edge */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  color: white; text-shadow: 0 1px 3px rgba(0,0,0,0.5); /* Pops text off glass */
+  font-family: 'Oswald'; font-weight: 700; padding: 12px 20px; border-radius: 8px; cursor: pointer; text-transform: uppercase; font-size: 13px; transition: 0.2s; flex: 1;
   position: relative; overflow: hidden;
 }
-.btn-primary:hover { filter: brightness(1.1); transform: translateY(-1px); }
+.btn-primary:hover { border-color: rgba(255,255,255,0.5); transform: translateY(-1px); }
 .btn-primary::after {
   content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
   background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
@@ -206,7 +222,6 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
   .modal { border-radius: 12px 12px 0 0; max-height: 95dvh; margin-top: auto; }
   .modal-body { flex-direction: column; padding: 15px; gap: 15px; }
   
-  /* --- THE BULLETPROOF MOBILE LAYOUT FIX --- */
   .modal-col-left { width: 100%; flex-direction: row; align-items: center; flex-wrap: wrap; gap: 12px; justify-content: center; }
   .modern-upload { width: 100% !important; flex: 0 0 100% !important; } 
   .upload-preview { width: 100px; height: 100px; margin-bottom: 0; }
@@ -552,7 +567,6 @@ function renderTable(wrap, list) {
             const gs = c.status === 'wanted' ? '--' : (g>=0?'+':'-')+fmt(g);
             let roi = ''; if (c.status !== 'wanted' && p > 0) roi = ` <span style="font-size:10px; opacity:0.7;">(${(g/p*100).toFixed(0)}%)</span>`;
             
-            // THE NEW LIST VIEW IMAGE INDICATOR (CLEAN AND TINY)
             const imgBadge = c.img ? `<span onclick="openLightbox('${c.img}', event)" style="font-size:14px; margin-left:10px; opacity:0.6; transition:0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.6'" title="View Image">🔍</span>` : '';
 
             return `<tr style="opacity:${c.status==='sold'?'0.6':'1'};cursor:pointer" onclick="openAdd('${c.id}')">
