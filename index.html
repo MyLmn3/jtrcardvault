@@ -26,22 +26,24 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
 .header { background: var(--navy3); border-bottom: 2px solid var(--green); padding: 0 20px; display: flex; align-items: center; justify-content: space-between; height: 60px; position: sticky; top: 0; z-index: 200; }
 .logo-wrap { display: flex; align-items: center; gap: 12px; }
 
+/* Bolder Amplitude Pulse */
 @keyframes pulse-glow {
-  0% { box-shadow: 0 0 10px rgba(105,190,40,0.2); transform: scale(1); }
-  50% { box-shadow: 0 0 25px rgba(105,190,40,0.7); transform: scale(1.02); }
-  100% { box-shadow: 0 0 10px rgba(105,190,40,0.2); transform: scale(1); }
+  0% { box-shadow: 0 0 10px rgba(105,190,40,0.1); transform: scale(1); }
+  50% { box-shadow: 0 0 35px rgba(105,190,40,0.9); transform: scale(1.05); }
+  100% { box-shadow: 0 0 10px rgba(105,190,40,0.1); transform: scale(1); }
 }
 
-/* --- THE GLASS LOGO --- */
+/* --- THE SMOKED GLASS LOGO --- */
 .jtr-icon { 
   width: 34px; height: 34px; 
-  background: rgba(105,190,40,0.15); /* Frosted green base */
-  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); /* The glass effect */
-  border: 1px solid rgba(105,190,40,0.5); /* Crisp glass rim */
+  background: rgba(0, 0, 0, 0.6); /* Darker than the site background */
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); /* Glass effect */
+  border: 1px solid rgba(105,190,40,0.3); /* Subtle green rim */
   border-radius: 8px; display: flex; align-items: center; justify-content: center; 
   font-weight: 800; color: var(--green); /* Glowing text */
   font-size: 18px; font-family: 'Oswald'; 
-  animation: pulse-glow 3s infinite ease-in-out; 
+  text-shadow: 0 0 8px rgba(105,190,40,0.6); /* Makes the J radiate */
+  animation: pulse-glow 4s infinite ease-in-out; /* Slower, heavier breathing */
 }
 
 .logo { font-family: 'Oswald', sans-serif; font-size: 22px; font-weight: 700; color: var(--white); text-transform: uppercase; letter-spacing: 1px; }
